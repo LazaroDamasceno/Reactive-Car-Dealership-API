@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.domain;
 
 import lombok.Builder;
 import lombok.Getter;
