@@ -15,9 +15,7 @@ public class UserFinderUtil {
     public Mono<User> find(String ssn) {
         return userRepository
                 .findAll()
-                .filter(e -> e.getSsn().equals(ssn)
-                        && e.getDeactivatedAt() == null
-                )
+                .filter(e -> e.getSsn().equals(ssn))
                 .singleOrEmpty();
     }
 

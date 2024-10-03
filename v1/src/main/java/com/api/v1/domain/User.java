@@ -27,20 +27,14 @@ public class User {
     private String phoneNumber;
     private Instant createdAt;
     private ZoneId createdAtZone;
-    private Instant deactivatedAt;
-    private ZoneId deactivatedAtZone;
+    private Instant modifiedAt;
+    private ZoneId modifiedAtZone;
 
     public String getFullName() {
         if (middleName.isEmpty()) {
             return "%s %s".formatted(firstName, lastName);
         }
         return "%s %s %s".formatted(firstName, middleName, lastName);
-    }
-
-    public User deactivate() {
-        deactivatedAt = Instant.now();
-        deactivatedAtZone = ZoneId.systemDefault();
-        return this;
     }
 
     public User modify(
@@ -60,8 +54,8 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-        this.deactivatedAt = null;
-        this.deactivatedAtZone = null;
+        this.modifiedAt = null;
+        this.modifiedAtZone = null;
         return this;
     }
 
