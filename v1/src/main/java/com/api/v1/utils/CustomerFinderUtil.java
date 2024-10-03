@@ -1,7 +1,7 @@
 package com.api.v1.utils;
 
-import com.api.v1.domain.Customer;
-import com.api.v1.domain.CustomerRepository;
+import com.api.v1.domain.customer.Customer;
+import com.api.v1.domain.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;

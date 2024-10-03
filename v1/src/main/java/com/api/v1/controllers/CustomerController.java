@@ -1,10 +1,10 @@
 package com.api.v1.controllers;
 
-import com.api.v1.domain.Customer;
+import com.api.v1.domain.customer.Customer;
 import com.api.v1.dtos.CustomerModificationRequestDto;
 import com.api.v1.dtos.CustomerRegistrationRequestDto;
-import com.api.v1.services.CustomerModificationService;
-import com.api.v1.services.CustomerRegistrationService;
+import com.api.v1.services.customer.CustomerModificationService;
+import com.api.v1.services.customer.CustomerRegistrationService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
