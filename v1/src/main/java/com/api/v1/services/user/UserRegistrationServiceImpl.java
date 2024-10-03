@@ -1,7 +1,7 @@
-package com.api.v1.services;
+package com.api.v1.services.user;
 
-import com.api.v1.domain.User;
-import com.api.v1.domain.UserRepository;
+import com.api.v1.domain.user.User;
+import com.api.v1.domain.user.UserRepository;
 import com.api.v1.dtos.UserRegistrationRequestDto;
 import com.api.v1.exceptions.DuplicatedSsnException;
 import com.api.v1.utils.UserFinderUtil;
@@ -9,10 +9,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.UUID;
 
 @Service
 class UserRegistrationServiceImpl implements UserRegistrationService {
@@ -31,20 +27,7 @@ class UserRegistrationServiceImpl implements UserRegistrationService {
                 .flatMap(exists -> {
                     if (exists) return Mono.error(new DuplicatedSsnException(requestDto.ssn()));
                     return Mono.defer(() -> {
-                       User newUser = User
-                               .builder()
-                               .id(UUID.randomUUID())
-                               .firstName(requestDto.firstName())
-                               .middleName(requestDto.middleName())
-                               .lastName(requestDto.lastName())
-                               .ssn(requestDto.ssn())
-                               .birthDate(requestDto.birthDate())
-                               .email(requestDto.email())
-                               .gender(requestDto.gender())
-                               .phoneNumber(requestDto.phoneNumber())
-                               .createdAt(Instant.now())
-                               .createdAtZone(ZoneId.systemDefault())
-                               .build();
+                       User newUser = User.createInstance(requestDto);
                        return userRepository.save(newUser);
                     });
                 });
