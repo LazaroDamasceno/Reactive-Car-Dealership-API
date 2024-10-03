@@ -1,5 +1,6 @@
 package com.api.v1;
 
+import com.api.v1.domain.Customer;
 import com.api.v1.dtos.CustomerRegistrationRequestDto;
 import com.api.v1.dtos.UserRegistrationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 
@@ -41,8 +43,8 @@ class CustomerRegistrationTest {
                 .uri("api/v1/customers")
                 .bodyValue(requestDto)
                 .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody(CustomerRegistrationRequestDto.class);
+                .expectStatus()
+                .is2xxSuccessful();
     }
 
     @Test
@@ -52,7 +54,8 @@ class CustomerRegistrationTest {
                 .uri("api/v1/customers")
                 .bodyValue(requestDto)
                 .exchange()
-                .expectStatus().is5xxServerError();
+                .expectStatus()
+                .is5xxServerError();
     }
 
 }
