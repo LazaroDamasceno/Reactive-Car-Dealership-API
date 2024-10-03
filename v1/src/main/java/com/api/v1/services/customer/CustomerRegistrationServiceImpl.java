@@ -1,16 +1,13 @@
-package com.api.v1.services;
+package com.api.v1.services.customer;
 
-import com.api.v1.domain.Customer;
-import com.api.v1.domain.CustomerRepository;
+import com.api.v1.domain.customer.Customer;
+import com.api.v1.domain.customer.CustomerRepository;
 import com.api.v1.dtos.CustomerRegistrationRequestDto;
+import com.api.v1.services.user.UserRegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.UUID;
 
 @Service
 class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
@@ -25,15 +22,8 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
     public Mono<Customer> register(@Valid CustomerRegistrationRequestDto requestDto) {
         return userRegistrationService
                 .register(requestDto.userRegistrationRequestDto())
-                .flatMap(newUser -> {
-                   Customer newCustomer = Customer
-                           .builder()
-                           .id(UUID.randomUUID())
-                           .address(requestDto.address())
-                           .user(newUser)
-                           .createdAt(Instant.now())
-                           .createdAtZone(ZoneId.systemDefault())
-                           .build();
+                .flatMap(modifiedUser -> {
+                   Customer newCustomer = Customer.createInstance(requestDto.address(), modifiedUser);
                    return customerRepository.save(newCustomer);
                 });
     }
