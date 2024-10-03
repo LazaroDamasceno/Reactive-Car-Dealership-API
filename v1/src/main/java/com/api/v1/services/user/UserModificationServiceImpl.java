@@ -2,7 +2,7 @@ package com.api.v1.services.user;
 
 import com.api.v1.domain.audit_trail.UserAuditTrail;
 import com.api.v1.domain.user.User;
-import com.api.v1.domain.audit_trail.UserAuditTrailRepository;
+import com.api.v1.domain.audit_trail.UserChangesRecordRepository;
 import com.api.v1.domain.user.UserRepository;
 import com.api.v1.dtos.UserModificationRequestDto;
 import jakarta.validation.Valid;
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 class UserModificationServiceImpl implements UserModificationService {
 
     @Autowired
-    private UserAuditTrailRepository  auditTrailRepository;
+    private UserChangesRecordRepository auditTrailRepository;
 
     @Autowired
     private UserRepository userRepository;

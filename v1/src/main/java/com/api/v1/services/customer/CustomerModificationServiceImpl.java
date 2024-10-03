@@ -1,8 +1,8 @@
 package com.api.v1.services.customer;
 
-import com.api.v1.domain.audit_trail.CustomerAuditTrail;
+import com.api.v1.domain.audit_trail.CustomerChangesRecord;
 import com.api.v1.domain.customer.Customer;
-import com.api.v1.domain.audit_trail.CustomerAuditTrailRepository;
+import com.api.v1.domain.audit_trail.CustomerChangesRecordRepository;
 import com.api.v1.domain.customer.CustomerRepository;
 import com.api.v1.dtos.CustomerModificationRequestDto;
 import com.api.v1.services.user.UserModificationService;
@@ -24,7 +24,7 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     private CustomerFinderUtil customerFinderUtil;
 
     @Autowired
-    private CustomerAuditTrailRepository auditTrailRepository;
+    private CustomerChangesRecordRepository auditTrailRepository;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -36,7 +36,7 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     ) {
         return customerFinderUtil
                 .find(ssn)
-                .flatMap(customer -> auditTrailRepository.save(new CustomerAuditTrail(customer))
+                .flatMap(customer -> auditTrailRepository.save(new CustomerChangesRecord(customer))
                                 .then(Mono.defer(() -> userModificationService
                                         .modify(customer.getUser(), requestDto.userModificationRequestDto())
                                         .flatMap(user -> {
