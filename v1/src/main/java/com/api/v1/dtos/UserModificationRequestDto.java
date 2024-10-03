@@ -1,14 +1,19 @@
 package com.api.v1.dtos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public record UserModificationRequestDto(
-        String firstName,
-        String middleName,
-        String lastName,
-        LocalDate birthDate,
-        String email,
-        String gender,
-        String phoneNumber
+        @NotBlank String firstName,
+        @NotBlank String middleName,
+        @NotBlank String lastName,
+        @NotNull LocalDate birthDate,
+        @NotBlank @Email String email,
+        @NotBlank @Size(min=1) String gender,
+        @NotBlank @Size(min=10, max=10) String phoneNumber
 ) {
 }
