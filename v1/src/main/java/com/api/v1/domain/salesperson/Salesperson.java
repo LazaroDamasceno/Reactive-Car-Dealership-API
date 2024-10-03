@@ -12,7 +12,7 @@ import java.time.ZoneId;
 import java.util.UUID;
 
 @Getter
-@Document(collection = "v1_sale_person")
+@Document(collection = "v1_salesperson")
 public class Salesperson {
 
     @Id
