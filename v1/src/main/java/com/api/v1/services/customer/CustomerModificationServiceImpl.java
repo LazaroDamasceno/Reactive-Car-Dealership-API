@@ -1,8 +1,10 @@
-package com.api.v1.services;
+package com.api.v1.services.customer;
 
-import com.api.v1.domain.Customer;
-import com.api.v1.domain.CustomerRepository;
+import com.api.v1.domain.customer.Customer;
+import com.api.v1.domain.audit_trail.CustomerAuditTrailRepository;
+import com.api.v1.domain.customer.CustomerRepository;
 import com.api.v1.dtos.CustomerModificationRequestDto;
+import com.api.v1.services.user.UserModificationService;
 import com.api.v1.utils.CustomerFinderUtil;
 import com.api.v1.utils.UserFinderUtil;
 import jakarta.validation.Valid;
@@ -25,6 +27,9 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     private CustomerFinderUtil customerFinderUtil;
 
     @Autowired
+    private CustomerAuditTrailRepository auditTrailRepository;
+
+    @Autowired
     private CustomerRepository customerRepository;
 
     @Override
@@ -37,10 +42,13 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
                 .flatMap(user -> userModificationService.modify(user, requestDto.userModificationRequestDto()))
                 .flatMap(modifiedUser -> customerFinderUtil
                         .find(ssn)
-                        .flatMap(customer -> {
-                            customer.modify(requestDto.address(), modifiedUser);
-                            return customerRepository.save(customer);
-                }));
+                        .flatMap(customer -> auditTrailRepository.save(customer))
+                        .then(Mono.defer(() -> customerFinderUtil
+                                .find(ssn)
+                                .flatMap(customer -> {
+                                    customer.modify(requestDto.address(), modifiedUser);
+                                    return customerRepository.save(customer);
+                                }))));
     }
 
 }
