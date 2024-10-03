@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.NoSuchElementException;
-
 @Component
 public class CustomerFinderUtil {
 
@@ -24,9 +22,9 @@ public class CustomerFinderUtil {
                 .flatMap(user -> customerRepository
                         .findAll()
                         .filter(e -> e.getUser().equals(user))
-                        .single()
-                        .onErrorResume(ex -> Mono.error(new CustomerNotFoundException(ssn))));
-            );
+                        .singleOrEmpty()
+                        .switchIfEmpty(Mono.error(new CustomerNotFoundException(ssn)))
+                );
     }
 
 }
