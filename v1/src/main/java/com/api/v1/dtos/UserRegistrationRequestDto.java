@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public record UserRegistrationRequestDto(
         @NotBlank String firstName,
-        @NotBlank String middleName,
+        String middleName,
         @NotBlank String lastName,
         @NotBlank @Size(min=9, max=9) String ssn,
         @NotNull LocalDate birthDate,
