@@ -37,7 +37,7 @@ public class User {
         return "%s %s %s".formatted(firstName, middleName, lastName);
     }
 
-    public User modify(
+    public void modify(
             String firstName,
             String middleName,
             String lastName,
@@ -46,7 +46,6 @@ public class User {
             String gender,
             String phoneNumber
     ) {
-        this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -54,9 +53,8 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-        this.modifiedAt = null;
-        this.modifiedAtZone = null;
-        return this;
+        this.modifiedAt = Instant.now();
+        this.modifiedAtZone = ZoneId.systemDefault();
     }
 
 }

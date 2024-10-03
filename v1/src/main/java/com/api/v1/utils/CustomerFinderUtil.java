@@ -2,7 +2,6 @@ package com.api.v1.utils;
 
 import com.api.v1.domain.Customer;
 import com.api.v1.domain.CustomerRepository;
-import com.api.v1.exceptions.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -23,7 +22,6 @@ public class CustomerFinderUtil {
                         .findAll()
                         .filter(e -> e.getUser().equals(user))
                         .singleOrEmpty()
-                        .switchIfEmpty(Mono.error(new CustomerNotFoundException(ssn)))
                 );
     }
 
