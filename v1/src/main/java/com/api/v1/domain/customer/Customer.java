@@ -1,7 +1,8 @@
-package com.api.v1.domain;
+package com.api.v1.domain.customer;
 
-import lombok.Builder;
+import com.api.v1.domain.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,9 +10,9 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.UUID;
 
-@Document(collection = "customers")
+@Document(collection = "v1_customers")
 @Getter
-@Builder
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -22,6 +23,18 @@ public class Customer {
     private ZoneId createdAtZone;
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
+
+    private Customer(String address, User user) {
+        this.id = UUID.randomUUID();
+        this.address = address;
+        this.user = user;
+        this.createdAt = Instant.now();
+        this.createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Customer createInstance(String address, User user) {
+        return new Customer(address, user);
+    }
 
     public void modify(String address, User user) {
         this.address = address;

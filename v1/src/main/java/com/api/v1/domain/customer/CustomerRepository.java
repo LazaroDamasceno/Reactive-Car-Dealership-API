@@ -1,4 +1,4 @@
-package com.api.v1.domain;
+package com.api.v1.domain.customer;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
