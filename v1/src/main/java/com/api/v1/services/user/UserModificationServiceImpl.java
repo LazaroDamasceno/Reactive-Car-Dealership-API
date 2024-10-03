@@ -1,6 +1,5 @@
 package com.api.v1.services.user;
 
-import com.api.v1.domain.audit_trail.UserAuditTrail;
 import com.api.v1.domain.audit_trail.UserChangesRecord;
 import com.api.v1.domain.user.User;
 import com.api.v1.domain.audit_trail.UserChangesRecordRepository;

@@ -24,7 +24,7 @@ public class Salesperson {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Salesperson(BigInteger staffId, User user) {
+    public Salesperson(User user) {
         id = UUID.randomUUID();
         employeeId = EmployeeIdGeneratorUtil.generate();
         this.user = user;
