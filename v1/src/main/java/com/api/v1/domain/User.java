@@ -37,9 +37,10 @@ public class User {
         return "%s %s %s".formatted(firstName, middleName, lastName);
     }
 
-    public void deactivate() {
+    public User deactivate() {
         deactivatedAt = Instant.now();
         deactivatedAtZone = ZoneId.systemDefault();
+        return this;
     }
 
     public User modify(

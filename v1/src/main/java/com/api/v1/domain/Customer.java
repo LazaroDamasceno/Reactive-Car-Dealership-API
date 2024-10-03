@@ -23,11 +23,12 @@ public class Customer {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public void modify(String address, User user) {
+    public Customer modify(String address, User user) {
         this.address = address;
         this.user = user;
         modifiedAt = Instant.now();
         modifiedAtZone = ZoneId.systemDefault();
+        return this;
     }
 
 }
