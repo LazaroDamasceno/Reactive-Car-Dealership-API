@@ -32,7 +32,7 @@ public class User {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    private User(UserRegistrationRequestDto requestDto) {
+    public User(UserRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
         this.firstName = requestDto.firstName();
         this.middleName = requestDto.middleName();
@@ -44,10 +44,6 @@ public class User {
         this.phoneNumber = requestDto.phoneNumber();
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
-    }
-
-    public static User createInstance(UserRegistrationRequestDto requestDto) {
-        return new User(requestDto);
     }
 
     public String getFullName() {

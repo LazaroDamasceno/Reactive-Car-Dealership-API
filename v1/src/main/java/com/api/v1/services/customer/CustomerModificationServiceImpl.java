@@ -1,12 +1,12 @@
 package com.api.v1.services.customer;
 
+import com.api.v1.domain.audit_trail.CustomerAuditTrail;
 import com.api.v1.domain.customer.Customer;
 import com.api.v1.domain.audit_trail.CustomerAuditTrailRepository;
 import com.api.v1.domain.customer.CustomerRepository;
 import com.api.v1.dtos.CustomerModificationRequestDto;
 import com.api.v1.services.user.UserModificationService;
 import com.api.v1.utils.CustomerFinderUtil;
-import com.api.v1.utils.UserFinderUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,9 +16,6 @@ import reactor.core.publisher.Mono;
 
 @Service
 class CustomerModificationServiceImpl implements CustomerModificationService {
-
-    @Autowired
-    private UserFinderUtil userFinderUtil;
 
     @Autowired
     private UserModificationService userModificationService;
@@ -34,21 +31,18 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
 
     @Override
     public Mono<Customer> modify(
-            @NotBlank @Size(min=9, max=9) String ssn,
+            @NotBlank @Size(min = 9, max = 9) String ssn,
             @Valid CustomerModificationRequestDto requestDto
     ) {
-        return userFinderUtil
+        return customerFinderUtil
                 .find(ssn)
-                .flatMap(user -> userModificationService.modify(user, requestDto.userModificationRequestDto()))
-                .flatMap(modifiedUser -> customerFinderUtil
-                        .find(ssn)
-                        .flatMap(customer -> auditTrailRepository.save(customer))
-                        .then(Mono.defer(() -> customerFinderUtil
-                                .find(ssn)
-                                .flatMap(customer -> {
-                                    customer.modify(requestDto.address(), modifiedUser);
-                                    return customerRepository.save(customer);
-                                }))));
+                .flatMap(customer -> auditTrailRepository.save(new CustomerAuditTrail(customer))
+                                .then(Mono.defer(() -> userModificationService
+                                        .modify(customer.getUser(), requestDto.userModificationRequestDto())
+                                        .flatMap(user -> {
+                                            customer.modify(requestDto.address(), user);
+                                            return customerRepository.save(customer);
+                                        }))));
     }
 
 }

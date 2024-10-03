@@ -2,6 +2,7 @@ package com.api.v1.utils;
 
 import com.api.v1.domain.customer.Customer;
 import com.api.v1.domain.customer.CustomerRepository;
+import com.api.v1.exceptions.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -12,17 +13,12 @@ public class CustomerFinderUtil {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private UserFinderUtil userFinderUtil;
-
     public Mono<Customer> find(String ssn) {
-        return userFinderUtil
-                .find(ssn)
-                .flatMap(user -> customerRepository
-                        .findAll()
-                        .filter(e -> e.getUser().equals(user))
-                        .singleOrEmpty()
-                );
+        return customerRepository
+                .findAll()
+                .filter(e -> e.getUser().getSsn().equals(ssn))
+                .singleOrEmpty()
+                .switchIfEmpty(Mono.error(new CustomerNotFoundException(ssn)));
     }
 
 }

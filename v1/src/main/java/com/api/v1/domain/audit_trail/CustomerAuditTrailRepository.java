@@ -5,5 +5,5 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 import java.util.UUID;
 
-public interface CustomerAuditTrailRepository extends ReactiveCrudRepository<Customer, UUID> {
+public interface CustomerAuditTrailRepository extends ReactiveCrudRepository<CustomerAuditTrail, UUID> {
 }
