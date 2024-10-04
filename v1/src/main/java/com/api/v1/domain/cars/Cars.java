@@ -16,7 +16,7 @@ public class Cars {
 
     @Id
     private UUID id;
-    private String name;
+    private String make;
     private String model;
     private String vin;
     private int productionYear;
@@ -28,7 +28,7 @@ public class Cars {
 
     public Cars(CarRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
-        this.name = requestDto.name();
+        this.make = requestDto.make();
         this.model = requestDto.model();
         this.vin = requestDto.vin();
         this.productionYear = requestDto.productionYear();
