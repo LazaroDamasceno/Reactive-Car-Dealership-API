@@ -1,7 +1,7 @@
 package com.api.v1.services.salespeople;
 
-import com.api.v1.domain.salespeople.Salesperson;
-import com.api.v1.domain.salespeople.SalespersonRepository;
+import com.api.v1.domain.salespeople.Salespeople;
+import com.api.v1.domain.salespeople.SalespeopleRepository;
 import com.api.v1.dtos.users.UserRegistrationRequestDto;
 import com.api.v1.services.users.UserRegistrationService;
 import jakarta.validation.Valid;
@@ -16,14 +16,14 @@ class SalespersonRegistrationServiceImpl implements SalespersonRegistrationServi
     private UserRegistrationService userRegistrationService;
 
     @Autowired
-    private SalespersonRepository salespersonRepository;
+    private SalespeopleRepository salespersonRepository;
 
     @Override
-    public Mono<Salesperson> register(@Valid UserRegistrationRequestDto requestDto) {
+    public Mono<Salespeople> register(@Valid UserRegistrationRequestDto requestDto) {
         return userRegistrationService
                 .register(requestDto)
                 .flatMap(user -> {
-                    Salesperson salesperson = new Salesperson(user);
+                    Salespeople salesperson = new Salespeople(user);
                     return salespersonRepository.save(salesperson);
                 });
     }

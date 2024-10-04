@@ -1,9 +1,9 @@
 package com.api.v1.services.users;
 
-import com.api.v1.domain.changes_records.UserChangesRecord;
-import com.api.v1.domain.users.User;
-import com.api.v1.domain.changes_records.UserChangesRecordRepository;
-import com.api.v1.domain.users.UserRepository;
+import com.api.v1.domain.changes_records.UsersChangesRecord;
+import com.api.v1.domain.users.Users;
+import com.api.v1.domain.changes_records.UsersChangesRecordRepository;
+import com.api.v1.domain.users.UsersRepository;
 import com.api.v1.dtos.users.UserModificationRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,14 +15,14 @@ import reactor.core.publisher.Mono;
 class UserModificationServiceImpl implements UserModificationService {
 
     @Autowired
-    private UserChangesRecordRepository userChangesRecordRepository;
+    private UsersChangesRecordRepository userChangesRecordRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository userRepository;
 
     @Override
-    public Mono<User> modify(@NotNull User user, @Valid UserModificationRequestDto requestDto) {
-        return userChangesRecordRepository.save(new UserChangesRecord(user))
+    public Mono<Users> modify(@NotNull Users user, @Valid UserModificationRequestDto requestDto) {
+        return userChangesRecordRepository.save(new UsersChangesRecord(user))
                         .then(Mono.defer(() -> {
                             user.modify(requestDto);
                             return userRepository.save(user);

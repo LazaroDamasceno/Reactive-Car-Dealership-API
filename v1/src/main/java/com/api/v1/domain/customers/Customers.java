@@ -1,6 +1,6 @@
 package com.api.v1.domain.customers;
 
-import com.api.v1.domain.users.User;
+import com.api.v1.domain.users.Users;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,18 +13,18 @@ import java.util.UUID;
 @Document(collection = "v1_customers")
 @Getter
 @NoArgsConstructor
-public class Customer {
+public class Customers {
 
     @Id
     private UUID id;
     private String address;
-    private User user;
+    private Users user;
     private Instant createdAt;
     private ZoneId createdAtZone;
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Customer(String address, User user) {
+    public Customers(String address, Users user) {
         this.id = UUID.randomUUID();
         this.address = address;
         this.user = user;
@@ -32,7 +32,7 @@ public class Customer {
         this.createdAtZone = ZoneId.systemDefault();
     }
 
-    public void modify(String address, User user) {
+    public void modify(String address, Users user) {
         this.address = address;
         this.user = user;
         modifiedAt = Instant.now();

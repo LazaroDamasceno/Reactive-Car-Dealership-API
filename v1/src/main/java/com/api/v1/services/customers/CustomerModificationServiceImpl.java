@@ -1,9 +1,9 @@
 package com.api.v1.services.customers;
 
-import com.api.v1.domain.changes_records.CustomerChangesRecord;
-import com.api.v1.domain.customers.Customer;
-import com.api.v1.domain.changes_records.CustomerChangesRecordRepository;
-import com.api.v1.domain.customers.CustomerRepository;
+import com.api.v1.domain.changes_records.CustomersChangesRecord;
+import com.api.v1.domain.customers.Customers;
+import com.api.v1.domain.changes_records.CustomersChangesRecordRepository;
+import com.api.v1.domain.customers.CustomersRepository;
 import com.api.v1.dtos.customers.CustomerModificationRequestDto;
 import com.api.v1.services.users.UserModificationService;
 import com.api.v1.utils.customers.CustomerFinderUtil;
@@ -24,19 +24,19 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     private CustomerFinderUtil customerFinderUtil;
 
     @Autowired
-    private CustomerChangesRecordRepository auditTrailRepository;
+    private CustomersChangesRecordRepository auditTrailRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomersRepository customerRepository;
 
     @Override
-    public Mono<Customer> modify(
+    public Mono<Customers> modify(
             @NotBlank @Size(min = 9, max = 9) String ssn,
             @Valid CustomerModificationRequestDto requestDto
     ) {
         return customerFinderUtil
                 .find(ssn)
-                .flatMap(customer -> auditTrailRepository.save(new CustomerChangesRecord(customer))
+                .flatMap(customer -> auditTrailRepository.save(new CustomersChangesRecord(customer))
                                 .then(Mono.defer(() -> userModificationService
                                         .modify(customer.getUser(), requestDto.userModificationRequestDto())
                                         .flatMap(user -> {

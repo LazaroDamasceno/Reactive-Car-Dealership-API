@@ -1,7 +1,7 @@
 package com.api.v1.services.users;
 
-import com.api.v1.domain.users.User;
-import com.api.v1.domain.users.UserRepository;
+import com.api.v1.domain.users.Users;
+import com.api.v1.domain.users.UsersRepository;
 import com.api.v1.dtos.users.UserRegistrationRequestDto;
 import com.api.v1.exceptions.users.DuplicatedSsnException;
 import jakarta.validation.Valid;
@@ -13,10 +13,10 @@ import reactor.core.publisher.Mono;
 class UserRegistrationServiceImpl implements UserRegistrationService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository userRepository;
 
     @Override
-    public Mono<User> register(@Valid UserRegistrationRequestDto requestDto) {
+    public Mono<Users> register(@Valid UserRegistrationRequestDto requestDto) {
         return userRepository
                 .findAll()
                 .filter(e -> e.getSsn().equals(requestDto.ssn()))
@@ -24,7 +24,7 @@ class UserRegistrationServiceImpl implements UserRegistrationService {
                 .flatMap(exists -> {
                     if (exists) return Mono.error(new DuplicatedSsnException(requestDto.ssn()));
                     return Mono.defer(() -> {
-                       User newUser = new User(requestDto);
+                       Users newUser = new Users(requestDto);
                        return userRepository.save(newUser);
                     });
                 });

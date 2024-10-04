@@ -1,6 +1,6 @@
 package com.api.v1.controllers.salespeople;
 
-import com.api.v1.domain.salespeople.Salesperson;
+import com.api.v1.domain.salespeople.Salespeople;
 import com.api.v1.dtos.users.UserModificationRequestDto;
 import com.api.v1.dtos.users.UserRegistrationRequestDto;
 import com.api.v1.services.salespeople.SalespersonModificationService;
@@ -25,13 +25,13 @@ public class SalespersonController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<Salesperson> register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
+    public Mono<Salespeople> register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
         return salespersonRegistrationService.register(requestDto);
     }
 
     @PutMapping("{employeeId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Salesperson> modify(
+    public Mono<Salespeople> modify(
             @NotBlank @Size(min=7, max=7) @PathVariable String employeeId,
             @RequestBody UserModificationRequestDto requestDto
     ) {

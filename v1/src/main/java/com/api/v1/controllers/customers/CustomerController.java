@@ -1,6 +1,6 @@
 package com.api.v1.controllers.customers;
 
-import com.api.v1.domain.customers.Customer;
+import com.api.v1.domain.customers.Customers;
 import com.api.v1.dtos.customers.CustomerModificationRequestDto;
 import com.api.v1.dtos.customers.CustomerRegistrationRequestDto;
 import com.api.v1.services.customers.CustomerModificationService;
@@ -25,12 +25,12 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<Customer> register(@Valid @RequestBody CustomerRegistrationRequestDto requestDto) {
+    public Mono<Customers> register(@Valid @RequestBody CustomerRegistrationRequestDto requestDto) {
         return customerRegistrationService.register(requestDto);
     }
 
     @PutMapping("{ssn}")
-    public Mono<Customer> modify(
+    public Mono<Customers> modify(
             @PathVariable @NotBlank @Size(min=9, max=9) String ssn,
             @Valid @RequestBody CustomerModificationRequestDto requestDto
     ) {

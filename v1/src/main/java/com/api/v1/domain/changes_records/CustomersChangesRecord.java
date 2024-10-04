@@ -1,22 +1,23 @@
 package com.api.v1.domain.changes_records;
 
-import com.api.v1.domain.users.User;
+import com.api.v1.domain.customers.Customers;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
-@Document(collection = "user_changes_Record")
+@Document(collection = "customer_changes_record")
 @Getter
-public class UserChangesRecord {
+public class CustomersChangesRecord {
 
     @Id
     private UUID id;
-    private User user;
+    private Customers customer;
 
-    public UserChangesRecord(User user) {
+    public CustomersChangesRecord(Customers customer) {
         this.id = UUID.randomUUID();
-        this.user = user;
+        this.customer = customer;
     }
+
 }

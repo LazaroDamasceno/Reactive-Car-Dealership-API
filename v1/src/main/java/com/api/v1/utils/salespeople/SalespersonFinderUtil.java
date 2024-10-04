@@ -1,7 +1,7 @@
 package com.api.v1.utils.salespeople;
 
-import com.api.v1.domain.salespeople.Salesperson;
-import com.api.v1.domain.salespeople.SalespersonRepository;
+import com.api.v1.domain.salespeople.Salespeople;
+import com.api.v1.domain.salespeople.SalespeopleRepository;
 import com.api.v1.exceptions.salespeople.SalespersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import java.math.BigInteger;
 public class SalespersonFinderUtil {
 
     @Autowired
-    private SalespersonRepository salespersonRepository;
+    private SalespeopleRepository salespersonRepository;
 
-    public Mono<Salesperson> find(String employeeId) {
+    public Mono<Salespeople> find(String employeeId) {
         return salespersonRepository
                 .findAll()
                 .filter(e -> e.getEmployeeId().equals(new BigInteger(employeeId)))

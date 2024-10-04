@@ -1,11 +1,11 @@
 package com.api.v1.services.salespeople;
 
-import com.api.v1.domain.changes_records.SalespersonChangesRecord;
-import com.api.v1.domain.changes_records.SalespersonChangesRecordRepository;
-import com.api.v1.domain.salespeople.Salesperson;
-import com.api.v1.domain.salespeople.SalespersonRepository;
-import com.api.v1.domain.users.User;
-import com.api.v1.domain.users.UserRepository;
+import com.api.v1.domain.changes_records.SalespeopleChangesRecord;
+import com.api.v1.domain.changes_records.SalespeopleChangesRecordRepository;
+import com.api.v1.domain.salespeople.Salespeople;
+import com.api.v1.domain.salespeople.SalespeopleRepository;
+import com.api.v1.domain.users.Users;
+import com.api.v1.domain.users.UsersRepository;
 import com.api.v1.dtos.users.UserModificationRequestDto;
 import com.api.v1.services.users.UserModificationService;
 import com.api.v1.utils.salespeople.SalespersonFinderUtil;
@@ -26,16 +26,16 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
     private UserModificationService userModificationService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository userRepository;
 
     @Autowired
-    private SalespersonRepository salespersonRepository;
+    private SalespeopleRepository salespersonRepository;
 
     @Autowired
-    private SalespersonChangesRecordRepository salespersonChangesRecordRepository;
+    private SalespeopleChangesRecordRepository salespersonChangesRecordRepository;
 
     @Override
-    public Mono<Salesperson> modify(
+    public Mono<Salespeople> modify(
             @NotBlank @Size(min = 7, max = 7) String employeeId,
             @Valid UserModificationRequestDto requestDto
     ) {
@@ -45,9 +45,9 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
                 .then(Mono.defer(() -> salespersonFinderUtil
                         .find(employeeId)
                         .flatMap(salesperson -> salespersonChangesRecordRepository
-                                .save(new SalespersonChangesRecord(salesperson))
+                                .save(new SalespeopleChangesRecord(salesperson))
                                 .then(Mono.defer(() -> {
-                                    User user = salesperson.getUser();
+                                    Users user = salesperson.getUser();
                                     user.modify(requestDto);
                                     return userRepository.save(user)
                                             .flatMap(modifiedUser -> {

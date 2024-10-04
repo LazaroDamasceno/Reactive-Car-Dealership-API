@@ -1,6 +1,6 @@
 package com.api.v1.domain.salespeople;
 
-import com.api.v1.domain.users.User;
+import com.api.v1.domain.users.Users;
 import com.api.v1.utils.salespeople.EmployeeIdGeneratorUtil;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -13,18 +13,18 @@ import java.util.UUID;
 
 @Getter
 @Document(collection = "v1_salesperson")
-public class Salesperson {
+public class Salespeople {
 
     @Id
     private UUID id;
     private BigInteger employeeId;
-    private User user;
+    private Users user;
     private Instant createdAt;
     private ZoneId createdAtZone;
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Salesperson(User user) {
+    public Salespeople(Users user) {
         id = UUID.randomUUID();
         employeeId = EmployeeIdGeneratorUtil.generate();
         this.user = user;
@@ -32,7 +32,7 @@ public class Salesperson {
         createdAtZone = ZoneId.systemDefault();
     }
 
-    public void modify(User user) {
+    public void modify(Users user) {
         this.user = user;
         modifiedAt = Instant.now();
         modifiedAtZone = ZoneId.systemDefault();

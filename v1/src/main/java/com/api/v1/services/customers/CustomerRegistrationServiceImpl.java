@@ -1,7 +1,7 @@
 package com.api.v1.services.customers;
 
-import com.api.v1.domain.customers.Customer;
-import com.api.v1.domain.customers.CustomerRepository;
+import com.api.v1.domain.customers.Customers;
+import com.api.v1.domain.customers.CustomersRepository;
 import com.api.v1.dtos.customers.CustomerRegistrationRequestDto;
 import com.api.v1.services.users.UserRegistrationService;
 import jakarta.validation.Valid;
@@ -16,14 +16,14 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
     private UserRegistrationService userRegistrationService;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomersRepository customerRepository;
 
     @Override
-    public Mono<Customer> register(@Valid CustomerRegistrationRequestDto requestDto) {
+    public Mono<Customers> register(@Valid CustomerRegistrationRequestDto requestDto) {
         return userRegistrationService
                 .register(requestDto.userRegistrationRequestDto())
                 .flatMap(modifiedUser -> {
-                   Customer newCustomer = new Customer(requestDto.address(), modifiedUser);
+                   Customers newCustomer = new Customers(requestDto.address(), modifiedUser);
                    return customerRepository.save(newCustomer);
                 });
     }

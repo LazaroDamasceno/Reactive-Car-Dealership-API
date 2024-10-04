@@ -15,7 +15,7 @@ import java.util.UUID;
 @Document(collection = "v1_users")
 @Getter
 @NoArgsConstructor
-public class User {
+public class Users {
 
     @Id
     private UUID id;
@@ -32,7 +32,7 @@ public class User {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public User(UserRegistrationRequestDto requestDto) {
+    public Users(UserRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
         this.firstName = requestDto.firstName();
         this.middleName = requestDto.middleName();
