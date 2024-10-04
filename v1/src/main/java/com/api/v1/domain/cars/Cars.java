@@ -1,5 +1,6 @@
 package com.api.v1.domain.cars;
 
+import com.api.v1.dtos.cars.CarRegistrationRequestDto;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,18 +26,13 @@ public class Cars {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Cars(
-            String name,
-            String model,
-            String vin,
-            int productionYear,
-            BigDecimal price) {
+    public Cars(CarRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
-        this.name = name;
-        this.model = model;
-        this.vin = vin;
-        this.productionYear = productionYear;
-        this.price = price;
+        this.name = requestDto.name();
+        this.model = requestDto.model();
+        this.vin = requestDto.vin();
+        this.productionYear = requestDto.productionYear();
+        this.price = BigDecimal.valueOf(requestDto.price());
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
     }
