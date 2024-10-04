@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/customers")
-public class CustomerController {
+public class CustomersController {
 
     @Autowired
     private CustomerRegistrationService customerRegistrationService;
