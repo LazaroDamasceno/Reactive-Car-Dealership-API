@@ -3,6 +3,7 @@ package com.api.v1.domain.cars;
 import com.api.v1.dtos.cars.CarModificationRequestDto;
 import com.api.v1.dtos.cars.CarRegistrationRequestDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @Document(collection = "v1_cars")
+@NoArgsConstructor
 public class Cars {
 
     @Id
