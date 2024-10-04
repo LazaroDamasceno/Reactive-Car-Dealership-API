@@ -37,7 +37,8 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
     @Override
     public Mono<Salesperson> modify(
             @NotBlank @Size(min = 7, max = 7) String employeeId,
-            @Valid UserModificationRequestDto requestDto) {
+            @Valid UserModificationRequestDto requestDto
+    ) {
         return salespersonFinderUtil
                 .find(employeeId)
                 .flatMap(salesperson -> userModificationService.modify(salesperson.getUser(), requestDto))
