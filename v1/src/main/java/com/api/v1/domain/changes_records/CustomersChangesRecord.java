@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
-@Document(collection = "customer_changes_record")
+@Document(collection = "customers_changes_record")
 @Getter
 public class CustomersChangesRecord {
 
