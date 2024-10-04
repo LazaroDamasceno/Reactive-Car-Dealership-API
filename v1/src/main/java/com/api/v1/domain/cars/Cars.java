@@ -1,5 +1,6 @@
 package com.api.v1.domain.cars;
 
+import com.api.v1.dtos.cars.CarModificationRequestDto;
 import com.api.v1.dtos.cars.CarRegistrationRequestDto;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -36,4 +37,14 @@ public class Cars {
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
     }
+
+    public void modify(CarModificationRequestDto requestDto) {
+        this.make = requestDto.make();
+        this.model = requestDto.model();
+        this.productionYear = requestDto.productionYear();
+        this.price = BigDecimal.valueOf(requestDto.price());
+        this.modifiedAt = Instant.now();
+        this.modifiedAtZone = ZoneId.systemDefault();
+    }
+
 }
