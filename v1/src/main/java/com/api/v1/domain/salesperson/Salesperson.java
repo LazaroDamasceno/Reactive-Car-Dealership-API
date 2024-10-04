@@ -1,7 +1,7 @@
 package com.api.v1.domain.salesperson;
 
 import com.api.v1.domain.user.User;
-import com.api.v1.utils.EmployeeIdGeneratorUtil;
+import com.api.v1.utils.salesperson.EmployeeIdGeneratorUtil;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

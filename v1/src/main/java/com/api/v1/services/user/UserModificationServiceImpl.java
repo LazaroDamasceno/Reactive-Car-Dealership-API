@@ -4,7 +4,7 @@ import com.api.v1.domain.audit_trail.UserChangesRecord;
 import com.api.v1.domain.user.User;
 import com.api.v1.domain.audit_trail.UserChangesRecordRepository;
 import com.api.v1.domain.user.UserRepository;
-import com.api.v1.dtos.UserModificationRequestDto;
+import com.api.v1.dtos.user.UserModificationRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.api.v1.utils;
+package com.api.v1.utils.customer;
 
 import com.api.v1.domain.customer.Customer;
 import com.api.v1.domain.customer.CustomerRepository;
-import com.api.v1.exceptions.CustomerNotFoundException;
+import com.api.v1.exceptions.customer.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;

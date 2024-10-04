@@ -2,7 +2,7 @@ package com.api.v1.services.salesperson;
 
 import com.api.v1.domain.salesperson.Salesperson;
 import com.api.v1.domain.salesperson.SalespersonRepository;
-import com.api.v1.dtos.UserRegistrationRequestDto;
+import com.api.v1.dtos.user.UserRegistrationRequestDto;
 import com.api.v1.services.user.UserRegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

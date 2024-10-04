@@ -1,7 +1,7 @@
 package com.api.v1;
 
-import com.api.v1.dtos.CustomerRegistrationRequestDto;
-import com.api.v1.dtos.UserRegistrationRequestDto;
+import com.api.v1.dtos.customer.CustomerRegistrationRequestDto;
+import com.api.v1.dtos.user.UserRegistrationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

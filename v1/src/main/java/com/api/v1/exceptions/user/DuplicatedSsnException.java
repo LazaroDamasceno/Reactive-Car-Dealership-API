@@ -1,4 +1,4 @@
-package com.api.v1.exceptions;
+package com.api.v1.exceptions.user;
 
 public class DuplicatedSsnException extends RuntimeException {
 

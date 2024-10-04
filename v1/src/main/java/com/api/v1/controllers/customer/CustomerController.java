@@ -1,8 +1,8 @@
-package com.api.v1.controllers;
+package com.api.v1.controllers.customer;
 
 import com.api.v1.domain.customer.Customer;
-import com.api.v1.dtos.CustomerModificationRequestDto;
-import com.api.v1.dtos.CustomerRegistrationRequestDto;
+import com.api.v1.dtos.customer.CustomerModificationRequestDto;
+import com.api.v1.dtos.customer.CustomerRegistrationRequestDto;
 import com.api.v1.services.customer.CustomerModificationService;
 import com.api.v1.services.customer.CustomerRegistrationService;
 import jakarta.validation.Valid;

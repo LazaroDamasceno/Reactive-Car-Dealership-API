@@ -2,7 +2,7 @@ package com.api.v1.services.customer;
 
 import com.api.v1.domain.customer.Customer;
 import com.api.v1.domain.customer.CustomerRepository;
-import com.api.v1.dtos.CustomerRegistrationRequestDto;
+import com.api.v1.dtos.customer.CustomerRegistrationRequestDto;
 import com.api.v1.services.user.UserRegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

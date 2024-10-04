@@ -1,5 +1,6 @@
-package com.api.v1.dtos;
+package com.api.v1.dtos.customer;
 
+import com.api.v1.dtos.user.UserRegistrationRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,8 +1,8 @@
-package com.api.v1.controllers;
+package com.api.v1.controllers.salesperson;
 
 import com.api.v1.domain.salesperson.Salesperson;
-import com.api.v1.dtos.UserModificationRequestDto;
-import com.api.v1.dtos.UserRegistrationRequestDto;
+import com.api.v1.dtos.user.UserModificationRequestDto;
+import com.api.v1.dtos.user.UserRegistrationRequestDto;
 import com.api.v1.services.salesperson.SalespersonModificationService;
 import com.api.v1.services.salesperson.SalespersonRegistrationService;
 import jakarta.validation.Valid;

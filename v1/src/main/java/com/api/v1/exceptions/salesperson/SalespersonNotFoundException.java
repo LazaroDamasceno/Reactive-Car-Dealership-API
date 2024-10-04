@@ -1,4 +1,4 @@
-package com.api.v1.exceptions;
+package com.api.v1.exceptions.salesperson;
 
 public class SalespersonNotFoundException extends RuntimeException {
 

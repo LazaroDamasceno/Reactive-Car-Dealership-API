@@ -1,4 +1,4 @@
-package com.api.v1.utils;
+package com.api.v1.utils.salesperson;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
