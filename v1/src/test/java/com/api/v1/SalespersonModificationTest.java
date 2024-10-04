@@ -1,6 +1,6 @@
 package com.api.v1;
 
-import com.api.v1.dtos.user.UserModificationRequestDto;
+import com.api.v1.dtos.users.UserModificationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
