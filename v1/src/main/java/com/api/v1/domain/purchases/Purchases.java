@@ -15,7 +15,7 @@ import java.util.UUID;
 @Document(collection = "v1_purchases")
 @Getter
 @NoArgsConstructor
-public class Purchase {
+public class Purchases {
 
     @Id
     private UUID id;
@@ -26,7 +26,7 @@ public class Purchase {
     private Instant createdAt;
     private ZoneId createdAtZone;
 
-    public Purchase(Cars car, Customers customers, double discount) {
+    public Purchases(Cars car, Customers customers) {
         this.id = UUID.randomUUID();
         this.car = car;
         this.customers = customers;
