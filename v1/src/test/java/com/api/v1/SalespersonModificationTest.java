@@ -30,10 +30,10 @@ class SalespersonModificationTest {
 
     @Test
     @Order(1)
-    void testSuccessfulRegistration() {
+    void testSuccessfulModification() {
         webTestClient
                 .put()
-                .uri("api/v1/salespeople/1000011")
+                .uri("api/v1/salespeople/1000062")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
@@ -41,10 +41,10 @@ class SalespersonModificationTest {
     }
 
     @Test
-    void testUnsuccessfulRegistration() {
+    void testUnsuccessfulModification() {
         webTestClient
                 .put()
-                .uri("api/v1/salespeople/1000030")
+                .uri("api/v1/salespeople/1000061")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()

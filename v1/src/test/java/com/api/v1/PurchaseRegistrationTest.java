@@ -20,7 +20,7 @@ class PurchaseRegistrationTest {
     void testSuccessfulRegistration() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L, 10000011))
+                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L,  1000121))
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful();
@@ -33,7 +33,7 @@ class PurchaseRegistrationTest {
                 .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L, 10000011))
                 .exchange()
                 .expectStatus()
-                .is5xxServerError();
+                .is4xxClientError();
     }
 
     @Test
@@ -43,7 +43,7 @@ class PurchaseRegistrationTest {
                 .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890122L, 123456788L, 10000011))
                 .exchange()
                 .expectStatus()
-                .is5xxServerError();
+                .is4xxClientError();
     }
 
     @Test
@@ -53,7 +53,7 @@ class PurchaseRegistrationTest {
                 .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L, 10000011))
                 .exchange()
                 .expectStatus()
-                .is5xxServerError();
+                .is4xxClientError();
     }
 
 }
