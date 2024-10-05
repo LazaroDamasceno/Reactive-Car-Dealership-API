@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.UUID;
 
-@Document(collection = "v1_purchase")
+@Document(collection = "v1_purchases")
 @Getter
 @NoArgsConstructor
 public class Purchase {
