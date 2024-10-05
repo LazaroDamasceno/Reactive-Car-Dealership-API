@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface PurchaseRegistrationService {
 
-    Mono<Purchases> register(String vin, String ssn);
+    Mono<Purchases> register(String vin, String ssn, String employeeId);
 
 }

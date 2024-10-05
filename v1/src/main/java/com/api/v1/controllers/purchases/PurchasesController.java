@@ -16,13 +16,14 @@ public class PurchasesController {
     @Autowired
     private PurchaseRegistrationService purchaseRegistrationService;
 
-    @PostMapping("{vin}/{ssn}")
+    @PostMapping("{vin}/{ssn}/{employeeId}")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Mono<Purchases> register(
             @PathVariable @NotBlank @Size(min=13, max=13) String vin,
-            @PathVariable @NotBlank @Size(min=9, max=9) String ssn
+            @PathVariable @NotBlank @Size(min=9, max=9) String ssn,
+            @PathVariable @NotBlank @Size(min=7, max=7) String employeeId
     ) {
-        return purchaseRegistrationService.register(vin, ssn);
+        return purchaseRegistrationService.register(vin, ssn, employeeId);
     }
 
 }
