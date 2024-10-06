@@ -4,8 +4,6 @@ import com.api.v1.domain.changes_records.SalespeopleChangesRecord;
 import com.api.v1.domain.changes_records.SalespeopleChangesRecordRepository;
 import com.api.v1.domain.salespeople.Salespeople;
 import com.api.v1.domain.salespeople.SalespeopleRepository;
-import com.api.v1.domain.users.Users;
-import com.api.v1.domain.users.UsersRepository;
 import com.api.v1.dtos.users.UserModificationRequestDto;
 import com.api.v1.services.users.UserModificationService;
 import com.api.v1.utils.salespeople.SalespersonFinderUtil;
@@ -26,9 +24,6 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
     private UserModificationService userModificationService;
 
     @Autowired
-    private UsersRepository userRepository;
-
-    @Autowired
     private SalespeopleRepository salespersonRepository;
 
     @Autowired
@@ -41,19 +36,14 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
     ) {
         return salespersonFinderUtil
                 .find(employeeId)
-                .flatMap(salesperson -> userModificationService.modify(salesperson.getUser(), requestDto))
-                .then(Mono.defer(() -> salespersonFinderUtil
-                        .find(employeeId)
-                        .flatMap(salesperson -> salespersonChangesRecordRepository
-                                .save(new SalespeopleChangesRecord(salesperson))
-                                .then(Mono.defer(() -> {
-                                    Users user = salesperson.getUser();
-                                    user.modify(requestDto);
-                                    return userRepository.save(user)
-                                            .flatMap(modifiedUser -> {
-                                                salesperson.modify(user);
-                                                return salespersonRepository.save(salesperson);
-                                            });
-                                })))));
+                .flatMap(employee -> userModificationService.modify(employee.getUser(), requestDto)
+                        .flatMap(user -> {
+                            SalespeopleChangesRecord salespeopleChangesRecord = new SalespeopleChangesRecord(employee);
+                            return salespersonChangesRecordRepository.save(salespeopleChangesRecord)
+                                    .then(Mono.defer(() -> {
+                                        employee.modify(user);
+                                        return salespersonRepository.save(employee);
+                                    }));
+                        }));
     }
 }
