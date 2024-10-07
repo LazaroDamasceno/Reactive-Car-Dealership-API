@@ -5,10 +5,12 @@ import com.api.v1.dtos.customers.CustomerResponseDto;
 import com.api.v1.dtos.salespeople.SalespeopleResponseDto;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.ZoneId;
 
 public record PurchaseResponseDto(
+        BigInteger idNumber,
         CarResponseDto car,
         CustomerResponseDto customers,
         SalespeopleResponseDto salesperson,
