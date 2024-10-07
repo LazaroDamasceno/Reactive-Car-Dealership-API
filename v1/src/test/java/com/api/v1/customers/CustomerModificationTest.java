@@ -1,6 +1,7 @@
-package com.api.v1;
+package com.api.v1.customers;
 
-import com.api.v1.dtos.cars.CarModificationRequestDto;
+import com.api.v1.dtos.customers.CustomerModificationRequestDto;
+import com.api.v1.dtos.users.UserModificationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,18 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.time.LocalDate;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CarModificationTest {
+class CustomerModificationTest {
 
     @Autowired
     WebTestClient webTestClient;
 
-    CarModificationRequestDto requestDto = new CarModificationRequestDto(
-            "GM",
-            "HUMMER E.V. PICKUP 2XX",
-            2023,
-            6_730D
+    CustomerModificationRequestDto requestDto = new CustomerModificationRequestDto(
+            "St. Dennis, Paris, EU",
+            new UserModificationRequestDto(
+                    "Leo",
+                    "Silva",
+                    "Santos Jr",
+                    LocalDate.parse("2000-12-12"),
+                    "jr@leosantos.io",
+                    "cis male",
+                    "0987654321"
+            )
     );
 
     @Test
@@ -28,7 +37,7 @@ class CarModificationTest {
     void testSuccessfulModification() {
         webTestClient
                 .put()
-                .uri("api/v1/cars/1234567890123")
+                .uri("api/v1/customers/123456789")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
@@ -39,7 +48,7 @@ class CarModificationTest {
     void testUnsuccessfulModification() {
         webTestClient
                 .put()
-                .uri("api/v1/cars/1234567890122")
+                .uri("api/v1/customers/123456788")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()

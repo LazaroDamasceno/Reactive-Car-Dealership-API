@@ -1,6 +1,7 @@
-package com.api.v1;
+package com.api.v1.customers;
 
-import com.api.v1.dtos.cars.CarRegistrationRequestDto;
+import com.api.v1.dtos.customers.CustomerRegistrationRequestDto;
+import com.api.v1.dtos.users.UserRegistrationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,19 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.time.LocalDate;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CarRegistrationTest {
+class CustomerRegistrationTest {
 
     @Autowired
     WebTestClient webTestClient;
 
-    CarRegistrationRequestDto requestDto = new CarRegistrationRequestDto(
-            "GMC",
-            "HUMMER EV PICKUP 2X",
-            "1234567890123",
-            2024,
-            4_730D
+    CustomerRegistrationRequestDto requestDto = new CustomerRegistrationRequestDto(
+            "St. Dennis, Paris",
+            new UserRegistrationRequestDto(
+                    "Leo",
+                    "",
+                    "Santos",
+                    "123456789",
+                    LocalDate.parse("2000-12-12"),
+                    "leosantos@mail.com",
+                    "male",
+                    "1234567890"
+            )
     );
 
     @Test
@@ -29,7 +38,7 @@ class CarRegistrationTest {
     void testSuccessfulRegistration() {
         webTestClient
                 .post()
-                .uri("api/v1/cars")
+                .uri("api/v1/customers")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
@@ -40,7 +49,7 @@ class CarRegistrationTest {
     void testUnsuccessfulRegistration() {
         webTestClient
                 .post()
-                .uri("api/v1/cars")
+                .uri("api/v1/customers")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()

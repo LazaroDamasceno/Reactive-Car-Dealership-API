@@ -1,7 +1,6 @@
-package com.api.v1;
+package com.api.v1.salespeople;
 
-import com.api.v1.dtos.customers.CustomerModificationRequestDto;
-import com.api.v1.dtos.users.UserModificationRequestDto;
+import com.api.v1.dtos.users.UserRegistrationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,30 +13,28 @@ import java.time.LocalDate;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerModificationTest {
+class SalespersonRegistrationTest {
 
     @Autowired
     WebTestClient webTestClient;
 
-    CustomerModificationRequestDto requestDto = new CustomerModificationRequestDto(
-            "St. Dennis, Paris, EU",
-            new UserModificationRequestDto(
-                    "Leo",
-                    "Silva",
-                    "Santos Jr",
-                    LocalDate.parse("2000-12-12"),
-                    "jr@leosantos.io",
-                    "cis male",
-                    "0987654321"
-            )
+    UserRegistrationRequestDto requestDto = new UserRegistrationRequestDto(
+            "Wilson",
+            "",
+            "Softener",
+            "987654321",
+            LocalDate.parse("2000-12-12"),
+            "Softener@w.Softener.com",
+            "male",
+            "1234567890"
     );
 
     @Test
     @Order(1)
-    void testSuccessfulModification() {
+    void testSuccessfulRegistration() {
         webTestClient
-                .put()
-                .uri("api/v1/customers/123456789")
+                .post()
+                .uri("api/v1/salespeople")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
@@ -45,10 +42,10 @@ class CustomerModificationTest {
     }
 
     @Test
-    void testUnsuccessfulModification() {
+    void testUnsuccessfulRegistration() {
         webTestClient
-                .put()
-                .uri("api/v1/customers/123456788")
+                .post()
+                .uri("api/v1/salespeople")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()

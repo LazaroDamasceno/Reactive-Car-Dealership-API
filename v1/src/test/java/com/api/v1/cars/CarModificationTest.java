@@ -1,6 +1,6 @@
-package com.api.v1;
+package com.api.v1.cars;
 
-import com.api.v1.dtos.users.UserRegistrationRequestDto;
+import com.api.v1.dtos.cars.CarModificationRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,32 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.time.LocalDate;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class SalespersonRegistrationTest {
+class CarModificationTest {
 
     @Autowired
     WebTestClient webTestClient;
 
-    UserRegistrationRequestDto requestDto = new UserRegistrationRequestDto(
-            "Wilson",
-            "",
-            "Softener",
-            "987654321",
-            LocalDate.parse("2000-12-12"),
-            "Softener@w.Softener.com",
-            "male",
-            "1234567890"
+    CarModificationRequestDto requestDto = new CarModificationRequestDto(
+            "GM",
+            "HUMMER E.V. PICKUP 2XX",
+            2023,
+            6_730D
     );
 
     @Test
     @Order(1)
-    void testSuccessfulRegistration() {
+    void testSuccessfulModification() {
         webTestClient
-                .post()
-                .uri("api/v1/salespeople")
+                .put()
+                .uri("api/v1/cars/1234567890123")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
@@ -42,10 +36,10 @@ class SalespersonRegistrationTest {
     }
 
     @Test
-    void testUnsuccessfulRegistration() {
+    void testUnsuccessfulModification() {
         webTestClient
-                .post()
-                .uri("api/v1/salespeople")
+                .put()
+                .uri("api/v1/cars/1234567890122")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()
