@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 public interface SalespersonRetrievalService {
 
     Flux<SalespersonResponseDto> findAll();
-    Mono<SalespersonResponseDto> findBySsn(String employeeId);
+    Mono<SalespersonResponseDto> findByEmployeeId(String employeeId);
 
 }

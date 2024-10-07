@@ -31,7 +31,7 @@ class SalespersonRetrievalServiceImpl implements SalespersonRetrievalService {
     }
 
     @Override
-    public Mono<SalespersonResponseDto> findBySsn(@NotBlank @Size(min=7, max=7) String employeeId) {
+    public Mono<SalespersonResponseDto> findByEmployeeId(@NotBlank @Size(min=7, max=7) String employeeId) {
         return salespersonFinderUtil
                 .find(employeeId)
                 .switchIfEmpty(Mono.error(new SalespersonNotFoundException(employeeId)))

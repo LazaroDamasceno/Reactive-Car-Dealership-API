@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 public interface SalespersonDeletionService {
 
     Mono<Void> deleteAll();
-    Mono<Void> deleteBySsn(String orderNumber);
+    Mono<Void> deleteByEmployeeId(String employeeId);
 
 }

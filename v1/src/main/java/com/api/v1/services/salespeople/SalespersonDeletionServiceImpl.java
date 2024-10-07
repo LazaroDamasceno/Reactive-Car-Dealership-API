@@ -31,7 +31,7 @@ class SalespersonDeletionServiceImpl implements SalespersonDeletionService {
     }
 
     @Override
-    public Mono<Void> deleteBySsn(@NotBlank @Size(min=7, max=7) String employeeId) {
+    public Mono<Void> deleteByEmployeeId(@NotBlank @Size(min=7, max=7) String employeeId) {
         return salespersonFinderUtil
                 .find(employeeId)
                 .hasElement()
