@@ -33,7 +33,7 @@ class CarModificationServiceImpl implements CarModificationService {
         return carFinderUtil
                 .find(vin)
                 .flatMap(car -> {
-                    CarsChangesRecord carsChangesRecord = new CarsChangesRecord(car);
+                    CarsChangesRecord carsChangesRecord = CarsChangesRecord.create(car);
                     return carsChangesRecordRepository.save(carsChangesRecord);
                 })
                 .then(Mono.defer(() -> carFinderUtil

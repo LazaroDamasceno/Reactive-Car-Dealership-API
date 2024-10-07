@@ -23,7 +23,7 @@ class SalespersonRegistrationServiceImpl implements SalespersonRegistrationServi
         return userRegistrationService
                 .register(requestDto)
                 .flatMap(user -> {
-                    Salespeople salesperson = new Salespeople(user);
+                    Salespeople salesperson = Salespeople.create(user);
                     return salespersonRepository.save(salesperson);
                 });
     }

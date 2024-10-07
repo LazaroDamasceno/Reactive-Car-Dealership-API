@@ -43,7 +43,7 @@ class PurchaseRegistrationServiceImpl implements PurchaseRegistrationService {
                     Cars car = tuple.getT1();
                     Customers customer = tuple.getT2();
                     Salespeople salesperson = tuple.getT3();
-                    Purchases purchase = new Purchases(car, customer, salesperson);
+                    Purchases purchase = Purchases.create(car, customer, salesperson);
                     return purchaseRepository.save(purchase);
                 });
     }

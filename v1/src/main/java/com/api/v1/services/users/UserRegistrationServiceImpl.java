@@ -24,7 +24,7 @@ class UserRegistrationServiceImpl implements UserRegistrationService {
                 .flatMap(exists -> {
                     if (exists) return Mono.error(new DuplicatedSsnException(requestDto.ssn()));
                     return Mono.defer(() -> {
-                       Users newUser = new Users(requestDto);
+                       Users newUser = Users.create(requestDto);
                        return userRepository.save(newUser);
                     });
                 });

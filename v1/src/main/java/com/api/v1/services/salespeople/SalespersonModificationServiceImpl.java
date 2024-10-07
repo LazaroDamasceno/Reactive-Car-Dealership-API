@@ -38,7 +38,7 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
                 .find(employeeId)
                 .flatMap(employee -> userModificationService.modify(employee.getUser(), requestDto)
                         .flatMap(user -> {
-                            SalespeopleChangesRecord salespeopleChangesRecord = new SalespeopleChangesRecord(employee);
+                            SalespeopleChangesRecord salespeopleChangesRecord = SalespeopleChangesRecord.create(employee);
                             return salespersonChangesRecordRepository.save(salespeopleChangesRecord)
                                     .then(Mono.defer(() -> {
                                         employee.modify(user);

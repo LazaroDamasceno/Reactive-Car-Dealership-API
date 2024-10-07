@@ -29,7 +29,7 @@ public class Cars {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Cars(CarRegistrationRequestDto requestDto) {
+    private Cars(CarRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
         this.make = requestDto.make();
         this.model = requestDto.model();
@@ -38,6 +38,10 @@ public class Cars {
         this.price = BigDecimal.valueOf(requestDto.price());
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Cars create(CarRegistrationRequestDto requestDto) {
+        return new Cars(requestDto);
     }
 
     public void modify(CarModificationRequestDto requestDto) {

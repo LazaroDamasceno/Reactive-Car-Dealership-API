@@ -23,7 +23,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
         return userRegistrationService
                 .register(requestDto.userRegistrationRequestDto())
                 .flatMap(modifiedUser -> {
-                   Customers newCustomer = new Customers(requestDto.address(), modifiedUser);
+                   Customers newCustomer = Customers.create(requestDto.address(), modifiedUser);
                    return customerRepository.save(newCustomer);
                 });
     }

@@ -32,7 +32,7 @@ public class Users {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Users(UserRegistrationRequestDto requestDto) {
+    private Users(UserRegistrationRequestDto requestDto) {
         this.id = UUID.randomUUID();
         this.firstName = requestDto.firstName();
         this.middleName = requestDto.middleName();
@@ -44,6 +44,10 @@ public class Users {
         this.phoneNumber = requestDto.phoneNumber();
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Users create(UserRegistrationRequestDto requestDto) {
+        return new Users(requestDto);
     }
 
     public String getFullName() {

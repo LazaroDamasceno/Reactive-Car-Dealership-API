@@ -24,12 +24,16 @@ public class Customers {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Customers(String address, Users user) {
+    private Customers(String address, Users user) {
         this.id = UUID.randomUUID();
         this.address = address;
         this.user = user;
         this.createdAt = Instant.now();
         this.createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Customers create(String address, Users user) {
+        return new Customers(address, user);
     }
 
     public void modify(String address, Users user) {

@@ -26,12 +26,16 @@ public class Salespeople {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
-    public Salespeople(Users user) {
+    private Salespeople(Users user) {
         id = UUID.randomUUID();
         employeeId = EmployeeIdGeneratorUtil.generate();
         this.user = user;
         createdAt = Instant.now();
         createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Salespeople create(Users user) {
+        return new Salespeople(user);
     }
 
     public void modify(Users user) {

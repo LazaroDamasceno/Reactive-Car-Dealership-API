@@ -24,7 +24,7 @@ class CarRegistrationServiceImpl implements CarRegistrationService {
                 .flatMap(exists -> {
                     if (exists) return Mono.error(new DuplicatedVinException(requestDto.vin()));
                     return Mono.defer(() -> {
-                       Cars car =  new Cars(requestDto);
+                       Cars car =  Cars.create(requestDto);
                        return carsRepository.save(car);
                     });
                 });

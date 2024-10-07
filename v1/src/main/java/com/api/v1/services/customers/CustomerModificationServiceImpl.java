@@ -36,7 +36,7 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     ) {
         return customerFinderUtil
                 .find(ssn)
-                .flatMap(customer -> auditTrailRepository.save(new CustomersChangesRecord(customer))
+                .flatMap(customer -> auditTrailRepository.save(CustomersChangesRecord.create(customer))
                                 .then(Mono.defer(() -> userModificationService
                                         .modify(customer.getUser(), requestDto.userModificationRequestDto())
                                         .flatMap(user -> {
