@@ -6,6 +6,8 @@ import com.api.v1.utils.cars.CarResponseMapper;
 import com.api.v1.utils.customers.CustomerResponseMapper;
 import com.api.v1.utils.salespeople.SalespersonResponseMapper;
 
+import java.time.ZonedDateTime;
+
 public class PurchaseResponseMapper {
 
     public static PurchaseResponseDto map(Purchases purchase) {
@@ -15,8 +17,7 @@ public class PurchaseResponseMapper {
                 CustomerResponseMapper.map(purchase.customers()),
                 SalespersonResponseMapper.map(purchase.salesperson()),
                 purchase.finalPrice(),
-                purchase.createdAt(),
-                purchase.createdAtZone()
+                ZonedDateTime.ofInstant(purchase.createdAt(), purchase.createdAtZone())
         );
     }
 

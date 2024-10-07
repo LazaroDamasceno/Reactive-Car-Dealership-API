@@ -6,8 +6,7 @@ import com.api.v1.dtos.salespeople.SalespersonResponseDto;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public record PurchaseResponseDto(
         BigInteger idNumber,
@@ -15,6 +14,5 @@ public record PurchaseResponseDto(
         CustomerResponseDto customers,
         SalespersonResponseDto salesperson,
         BigDecimal finalPrice,
-        Instant createdAt,
-        ZoneId createdAtZone
+        ZonedDateTime createdAt
 ) {}
