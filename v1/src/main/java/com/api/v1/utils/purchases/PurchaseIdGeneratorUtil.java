@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 public class PurchaseIdGeneratorUtil {
 
     private static int year = ZonedDateTime.now().getYear();
-    private static String strFormat = "%04d00000";
+    private static String strFormat = "%04d00000".formatted(year);
     private static BigInteger biFormat = new BigInteger(strFormat);
 
     public static BigInteger generate() {

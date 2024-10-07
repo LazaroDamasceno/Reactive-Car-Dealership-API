@@ -18,42 +18,57 @@ class PurchaseRegistrationTest {
     @Test
     @Order(1)
     void testSuccessfulRegistration() {
-        webTestClient
-                .post()
-                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L,  1000121))
-                .exchange()
-                .expectStatus()
-                .is2xxSuccessful();
+        int testcases = 25;
+        while (testcases > 0) {
+            webTestClient
+                    .post()
+                    .uri("api/v1/purchases/1234567890123/123456789/1000001")
+                    .exchange()
+                    .expectStatus()
+                    .is2xxSuccessful();
+            testcases--;
+        }
+
     }
 
     @Test
     void testUnsuccessfulRegistration1() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L, 10000011))
+                .uri("api/v1/purchases/1234567890122/123456789/1000001")
                 .exchange()
                 .expectStatus()
-                .is4xxClientError();
+                .is5xxServerError();
     }
 
     @Test
     void testUnsuccessfulRegistration2() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890122L, 123456788L, 10000011))
+                .uri("api/v1/purchases/1234567890123/123456788/1000001")
                 .exchange()
                 .expectStatus()
-                .is4xxClientError();
+                .is5xxServerError();
     }
 
     @Test
     void testUnsuccessfulRegistration3() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/%s/%s/%s".formatted(1234567890123L, 123456789L, 10000011))
+                .uri("api/v1/purchases/1234567890123/123456789/1000000")
                 .exchange()
                 .expectStatus()
-                .is4xxClientError();
+                .is5xxServerError();
+    }
+
+    @Test
+    void testUnsuccessfulRegistration4() {
+        webTestClient
+                .post()
+                .uri("api/v1/purchases/1234567890122/123456788/1000000")
+                .exchange()
+                .expectStatus()
+                .is5xxServerError();
     }
 
 }

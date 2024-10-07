@@ -33,7 +33,7 @@ class SalespersonModificationTest {
     void testSuccessfulModification() {
         webTestClient
                 .put()
-                .uri("api/v1/salespeople/1000062")
+                .uri("api/v1/salespeople/1000001")
                 .bodyValue(requestDto)
                 .exchange()
                 .expectStatus()

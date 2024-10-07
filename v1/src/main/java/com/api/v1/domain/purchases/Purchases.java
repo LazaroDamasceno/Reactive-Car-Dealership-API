@@ -15,8 +15,7 @@ import java.util.UUID;
 
 @Document(collection = "v1_purchases")
 public record Purchases (
-    @Id
-    UUID id,
+    @Id UUID id,
     BigInteger idNumber,
     Cars car,
     Customers customers,
