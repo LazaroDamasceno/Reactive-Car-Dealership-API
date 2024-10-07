@@ -2,7 +2,7 @@ package com.api.v1.dtos.purchases;
 
 import com.api.v1.dtos.cars.CarResponseDto;
 import com.api.v1.dtos.customers.CustomerResponseDto;
-import com.api.v1.dtos.salespeople.SalespeopleResponseDto;
+import com.api.v1.dtos.salespeople.SalespersonResponseDto;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -13,7 +13,7 @@ public record PurchaseResponseDto(
         BigInteger idNumber,
         CarResponseDto car,
         CustomerResponseDto customers,
-        SalespeopleResponseDto salesperson,
+        SalespersonResponseDto salesperson,
         BigDecimal finalPrice,
         Instant createdAt,
         ZoneId createdAtZone

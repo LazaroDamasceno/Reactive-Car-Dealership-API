@@ -4,7 +4,7 @@ import com.api.v1.dtos.users.UserResponseDto;
 
 import java.math.BigInteger;
 
-public record SalespeopleResponseDto(
+public record SalespersonResponseDto(
         BigInteger employeeId,
         UserResponseDto user
 ) {
