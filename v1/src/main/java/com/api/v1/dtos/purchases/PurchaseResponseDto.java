@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.time.ZonedDateTime;
 
 public record PurchaseResponseDto(
-        BigInteger idNumber,
+        BigInteger orderNumber,
         CarResponseDto car,
         CustomerResponseDto customers,
         SalespersonResponseDto salesperson,

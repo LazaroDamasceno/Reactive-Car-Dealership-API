@@ -15,12 +15,12 @@ public class PurchaseFinderUtil {
     @Autowired
     private PurchasesRepository purchasesRepository;
 
-    public Mono<Purchases> find(String idNumber) {
+    public Mono<Purchases> find(String orderNumber) {
         return purchasesRepository
                 .findAll()
-                .filter(e -> e.idNumber().equals(new BigInteger(idNumber)))
+                .filter(e -> e.orderNumber().equals(new BigInteger(orderNumber)))
                 .singleOrEmpty()
-                .switchIfEmpty(Mono.error(new PurchaseNotFoundException(idNumber)));
+                .switchIfEmpty(Mono.error(new PurchaseNotFoundException(orderNumber)));
     }
 
 }

@@ -12,7 +12,7 @@ public class PurchaseResponseMapper {
 
     public static PurchaseResponseDto map(Purchases purchase) {
         return new PurchaseResponseDto(
-                purchase.idNumber(),
+                purchase.orderNumber(),
                 CarResponseMapper.map(purchase.car()),
                 CustomerResponseMapper.map(purchase.customers()),
                 SalespersonResponseMapper.map(purchase.salesperson()),
