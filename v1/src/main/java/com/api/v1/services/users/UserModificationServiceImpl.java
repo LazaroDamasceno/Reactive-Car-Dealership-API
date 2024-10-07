@@ -22,7 +22,7 @@ class UserModificationServiceImpl implements UserModificationService {
 
     @Override
     public Mono<Users> modify(@NotNull Users user, @Valid UserModificationRequestDto requestDto) {
-        return userChangesRecordRepository.save(new UsersChangesRecord(user))
+        return userChangesRecordRepository.save(UsersChangesRecord.create(user))
                         .then(Mono.defer(() -> {
                             user.modify(requestDto);
                             return userRepository.save(user);
