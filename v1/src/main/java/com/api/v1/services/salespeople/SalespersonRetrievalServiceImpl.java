@@ -2,7 +2,6 @@ package com.api.v1.services.salespeople;
 
 import com.api.v1.domain.salespeople.SalespeopleRepository;
 import com.api.v1.dtos.salespeople.SalespersonResponseDto;
-import com.api.v1.exceptions.EmptyFluxException;
 import com.api.v1.exceptions.salespeople.SalespersonNotFoundException;
 import com.api.v1.utils.salespeople.SalespersonFinderUtil;
 import com.api.v1.utils.salespeople.SalespersonResponseMapper;
@@ -26,7 +25,6 @@ class SalespersonRetrievalServiceImpl implements SalespersonRetrievalService {
     public Flux<SalespersonResponseDto> findAll() {
         return salespeopleRepository
                 .findAll()
-                .switchIfEmpty(Mono.error(EmptyFluxException::new))
                 .flatMap(e -> Flux.just(SalespersonResponseMapper.map(e)));
     }
 

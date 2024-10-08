@@ -2,7 +2,6 @@ package com.api.v1.services.cars;
 
 import com.api.v1.domain.cars.CarsRepository;
 import com.api.v1.dtos.cars.CarResponseDto;
-import com.api.v1.exceptions.EmptyFluxException;
 import com.api.v1.exceptions.cars.CarNotFoundException;
 import com.api.v1.utils.cars.CarFinderUtil;
 import com.api.v1.utils.cars.CarResponseMapper;
@@ -34,7 +33,6 @@ class CarRetrievalServiceImpl implements CarRetrievalService {
     public Flux<CarResponseDto> findAll() {
         return carsRepository
                 .findAll()
-                .switchIfEmpty(Mono.error(EmptyFluxException::new))
                 .flatMap(car -> Flux.just(CarResponseMapper.map(car)));
     }
 

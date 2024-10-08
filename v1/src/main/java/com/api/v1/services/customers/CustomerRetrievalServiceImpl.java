@@ -2,7 +2,6 @@ package com.api.v1.services.customers;
 
 import com.api.v1.domain.customers.CustomersRepository;
 import com.api.v1.dtos.customers.CustomerResponseDto;
-import com.api.v1.exceptions.EmptyFluxException;
 import com.api.v1.exceptions.customers.CustomerNotFoundException;
 import com.api.v1.utils.customers.CustomerFinderUtil;
 import com.api.v1.utils.customers.CustomerResponseMapper;
@@ -34,7 +33,6 @@ class CustomerRetrievalServiceImpl implements CustomerRetrievalService {
     public Flux<CustomerResponseDto> findAll() {
         return customersRepository
                 .findAll()
-                .switchIfEmpty(Mono.error(EmptyFluxException::new))
                 .flatMap(customer -> Flux.just(CustomerResponseMapper.map(customer)));
     }
 
