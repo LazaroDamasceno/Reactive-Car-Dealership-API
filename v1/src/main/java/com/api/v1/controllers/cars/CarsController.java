@@ -4,6 +4,7 @@ import com.api.v1.domain.cars.Cars;
 import com.api.v1.dtos.cars.CarModificationRequestDto;
 import com.api.v1.dtos.cars.CarRegistrationRequestDto;
 import com.api.v1.dtos.cars.CarResponseDto;
+import com.api.v1.services.cars.CarDeletionService;
 import com.api.v1.services.cars.CarModificationService;
 import com.api.v1.services.cars.CarRegistrationService;
 import com.api.v1.services.cars.CarRetrievalService;
@@ -28,6 +29,9 @@ public class CarsController {
 
     @Autowired
     private CarRetrievalService carRetrievalService;
+
+    @Autowired
+    private CarDeletionService carDeletionService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -56,4 +60,15 @@ public class CarsController {
         return carRetrievalService.findAll();
     }
 
+    @DeleteMapping("{vin}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteByVin(@PathVariable @NotBlank @Size(min=13, max=13) String vin) {
+        return carDeletionService.deleteByVin(vin);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteAll() {
+        return carDeletionService.deleteAll();
+    }
 }
