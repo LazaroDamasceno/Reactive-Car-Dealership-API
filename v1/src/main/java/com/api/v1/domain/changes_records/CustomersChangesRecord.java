@@ -14,7 +14,8 @@ public record CustomersChangesRecord (
     UUID id,
     Customers customer,
     Instant createdAt,
-    ZoneId createdAtZone
+    ZoneId createdAtZone,
+    Instant deletionDate
 ) {
 
     public static CustomersChangesRecord create(Customers customer) {
@@ -22,7 +23,8 @@ public record CustomersChangesRecord (
                 UUID.randomUUID(),
                 customer,
                 Instant.now(),
-                ZoneId.systemDefault()
+                ZoneId.systemDefault(),
+                Instant.now().plusSeconds(157_680_000L)
         );
     }
 

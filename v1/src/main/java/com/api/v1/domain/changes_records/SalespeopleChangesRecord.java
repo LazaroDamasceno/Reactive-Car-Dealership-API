@@ -14,7 +14,8 @@ public record SalespeopleChangesRecord (
     UUID id,
     Salespeople salesperson,
     Instant createdAt,
-    ZoneId createdAtZone
+    ZoneId createdAtZone,
+    Instant deletionDate
 ) {
 
     public static SalespeopleChangesRecord create(Salespeople salesperson) {
@@ -22,7 +23,8 @@ public record SalespeopleChangesRecord (
                 UUID.randomUUID(),
                 salesperson,
                 Instant.now(),
-                ZoneId.systemDefault()
+                ZoneId.systemDefault(),
+                Instant.now().plusSeconds(157_680_000L)
         );
     }
 

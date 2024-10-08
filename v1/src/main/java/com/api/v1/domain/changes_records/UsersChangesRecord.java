@@ -14,15 +14,17 @@ public record UsersChangesRecord (
     UUID id,
     Users user,
     Instant createdAt,
-    ZoneId createdAtZone
+    ZoneId createdAtZone,
+    Instant deletionDate
 ) {
 
     public static UsersChangesRecord create(Users user) {
         return new UsersChangesRecord(
-            UUID.randomUUID(),
-            user,
-            Instant.now(),
-            ZoneId.systemDefault()
+                UUID.randomUUID(),
+                user,
+                Instant.now(),
+                ZoneId.systemDefault(),
+                Instant.now().plusSeconds(157_680_000L)
         );
     }
 

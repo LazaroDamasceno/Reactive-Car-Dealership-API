@@ -14,7 +14,8 @@ public record CarsChangesRecord (
     UUID id,
     Cars car,
     Instant createdAt,
-    ZoneId createdAtZone
+    ZoneId createdAtZone,
+    Instant deletionDate
 ) {
 
     public static CarsChangesRecord create(Cars car) {
@@ -22,7 +23,8 @@ public record CarsChangesRecord (
                 UUID.randomUUID(),
                 car,
                 Instant.now(),
-                ZoneId.systemDefault()
+                ZoneId.systemDefault(),
+                Instant.now().plusSeconds(157_680_000L)
         );
     }
 
