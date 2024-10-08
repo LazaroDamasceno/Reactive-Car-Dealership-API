@@ -28,7 +28,7 @@ public class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
     }
 
     @Override
-    public Mono<Void> deleteByOrderNumber(@NotBlank @Size(min=7, max=7) String orderNumber) {
+    public Mono<Void> deleteByOrderNumber(@NotBlank @Size(min=9, max=9) String orderNumber) {
         return purchaseFinderUtil
                 .find(orderNumber)
                 .switchIfEmpty(Mono.error(new PurchaseNotFoundException(orderNumber)))

@@ -35,13 +35,13 @@ public class CarsController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<Cars> register(@Valid @RequestBody CarRegistrationRequestDto requestDto) {
+    public Mono<CarResponseDto> register(@Valid @RequestBody CarRegistrationRequestDto requestDto) {
         return carRegistrationService.register(requestDto);
     }
 
     @PutMapping("{vin}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Cars> modify(
+    public Mono<CarResponseDto> modify(
             @PathVariable @NotBlank @Size(min=13, max=13) String vin,
             @RequestBody @Valid CarModificationRequestDto requestDto
     ) {

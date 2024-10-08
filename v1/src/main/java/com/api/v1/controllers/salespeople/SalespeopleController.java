@@ -35,13 +35,13 @@ public class SalespeopleController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<Salespeople> register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
+    public Mono<SalespersonResponseDto> register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
         return salespersonRegistrationService.register(requestDto);
     }
 
     @PutMapping("{employeeId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Salespeople> modify(
+    public Mono<SalespersonResponseDto> modify(
             @NotBlank @Size(min=7, max=7) @PathVariable String employeeId,
             @RequestBody UserModificationRequestDto requestDto
     ) {

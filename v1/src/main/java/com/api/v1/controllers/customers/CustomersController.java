@@ -41,7 +41,7 @@ public class CustomersController {
 
     @PutMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Customers> modify(
+    public Mono<CustomerResponseDto> modify(
             @PathVariable @NotBlank @Size(min=9, max=9) String ssn,
             @Valid @RequestBody CustomerModificationRequestDto requestDto
     ) {

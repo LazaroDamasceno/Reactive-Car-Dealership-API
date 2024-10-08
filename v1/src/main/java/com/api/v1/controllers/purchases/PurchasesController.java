@@ -39,7 +39,7 @@ public class PurchasesController {
 
     @DeleteMapping("{orderNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Void> deleteByOrderNumber(@PathVariable @NotBlank @Size(min=7, max=7) String orderNumber) {
+    public Mono<Void> deleteByOrderNumber(@PathVariable @NotBlank @Size(min=9, max=9) String orderNumber) {
         return purchaseDeletionService.deleteByOrderNumber(orderNumber);
     }
 }
