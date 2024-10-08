@@ -1,6 +1,8 @@
 package com.api.v1.controllers.purchases;
 
 import com.api.v1.domain.purchases.Purchases;
+import com.api.v1.dtos.purchases.PurchaseResponseDto;
+import com.api.v1.services.purchases.PurchaseDeletionService;
 import com.api.v1.services.purchases.PurchaseRegistrationService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,9 +18,12 @@ public class PurchasesController {
     @Autowired
     private PurchaseRegistrationService purchaseRegistrationService;
 
+    @Autowired
+    private PurchaseDeletionService purchaseDeletionService;
+
     @PostMapping("{vin}/{ssn}/{employeeId}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<Purchases> register(
+    public Mono<PurchaseResponseDto> register(
             @PathVariable @NotBlank @Size(min=13, max=13) String vin,
             @PathVariable @NotBlank @Size(min=9, max=9) String ssn,
             @PathVariable @NotBlank @Size(min=7, max=7) String employeeId
@@ -26,4 +31,15 @@ public class PurchasesController {
         return purchaseRegistrationService.register(vin, ssn, employeeId);
     }
 
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteAll() {
+        return purchaseDeletionService.deleteAll();
+    }
+
+    @DeleteMapping("{orderNumber}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByOrderNumber(@PathVariable @NotBlank @Size(min=7, max=7) String orderNumber) {
+        return purchaseDeletionService.deleteByOrderNumber(orderNumber);
+    }
 }
