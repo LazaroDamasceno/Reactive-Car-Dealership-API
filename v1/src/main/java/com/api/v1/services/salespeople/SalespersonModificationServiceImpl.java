@@ -4,9 +4,11 @@ import com.api.v1.domain.changes_records.SalespeopleChangesRecord;
 import com.api.v1.domain.changes_records.SalespeopleChangesRecordRepository;
 import com.api.v1.domain.salespeople.Salespeople;
 import com.api.v1.domain.salespeople.SalespeopleRepository;
+import com.api.v1.dtos.salespeople.SalespersonResponseDto;
 import com.api.v1.dtos.users.UserModificationRequestDto;
 import com.api.v1.services.users.UserModificationService;
 import com.api.v1.utils.salespeople.SalespersonFinderUtil;
+import com.api.v1.utils.salespeople.SalespersonResponseMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,7 +32,7 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
     private SalespeopleChangesRecordRepository salespersonChangesRecordRepository;
 
     @Override
-    public Mono<Salespeople> modify(
+    public Mono<SalespersonResponseDto> modify(
             @NotBlank @Size(min = 7, max = 7) String employeeId,
             @Valid UserModificationRequestDto requestDto
     ) {
@@ -44,6 +46,7 @@ class SalespersonModificationServiceImpl implements SalespersonModificationServi
                                         employee.modify(user);
                                         return salespersonRepository.save(employee);
                                     }));
-                        }));
+                        }))
+                .flatMap(salesperson -> Mono.just(SalespersonResponseMapper.map(salesperson)));
     }
 }

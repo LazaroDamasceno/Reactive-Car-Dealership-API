@@ -5,8 +5,10 @@ import com.api.v1.domain.customers.Customers;
 import com.api.v1.domain.purchases.Purchases;
 import com.api.v1.domain.purchases.PurchasesRepository;
 import com.api.v1.domain.salespeople.Salespeople;
+import com.api.v1.dtos.purchases.PurchaseResponseDto;
 import com.api.v1.utils.cars.CarFinderUtil;
 import com.api.v1.utils.customers.CustomerFinderUtil;
+import com.api.v1.utils.purchases.PurchaseResponseMapper;
 import com.api.v1.utils.salespeople.SalespersonFinderUtil;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,7 +32,7 @@ class PurchaseRegistrationServiceImpl implements PurchaseRegistrationService {
     private PurchasesRepository purchaseRepository;
 
     @Override
-    public Mono<Purchases> register(
+    public Mono<PurchaseResponseDto> register(
             @NotBlank @Size(min=13, max=13) String vin,
             @NotBlank @Size(min=9, max=9) String ssn,
             @NotBlank @Size(min=7, max=7) String employeeId
@@ -45,7 +47,8 @@ class PurchaseRegistrationServiceImpl implements PurchaseRegistrationService {
                     Salespeople salesperson = tuple.getT3();
                     Purchases purchase = Purchases.create(car, customer, salesperson);
                     return purchaseRepository.save(purchase);
-                });
+                })
+                .flatMap(purchase -> Mono.just(PurchaseResponseMapper.map(purchase)));
     }
 
 }

@@ -5,8 +5,10 @@ import com.api.v1.domain.customers.Customers;
 import com.api.v1.domain.changes_records.CustomersChangesRecordRepository;
 import com.api.v1.domain.customers.CustomersRepository;
 import com.api.v1.dtos.customers.CustomerModificationRequestDto;
+import com.api.v1.dtos.customers.CustomerResponseDto;
 import com.api.v1.services.users.UserModificationService;
 import com.api.v1.utils.customers.CustomerFinderUtil;
+import com.api.v1.utils.customers.CustomerResponseMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,7 +32,7 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
     private CustomersRepository customerRepository;
 
     @Override
-    public Mono<Customers> modify(
+    public Mono<CustomerResponseDto> modify(
             @NotBlank @Size(min = 9, max = 9) String ssn,
             @Valid CustomerModificationRequestDto requestDto
     ) {
@@ -42,7 +44,9 @@ class CustomerModificationServiceImpl implements CustomerModificationService {
                                         .flatMap(user -> {
                                             customer.modify(requestDto.address(), user);
                                             return customerRepository.save(customer);
-                                        }))));
+                }))))
+                .flatMap(customer -> Mono.just(CustomerResponseMapper.map(customer)));
+
     }
 
 }

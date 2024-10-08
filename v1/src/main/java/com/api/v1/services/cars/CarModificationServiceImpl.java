@@ -5,7 +5,9 @@ import com.api.v1.domain.cars.CarsRepository;
 import com.api.v1.domain.changes_records.CarsChangesRecord;
 import com.api.v1.domain.changes_records.CarsChangesRecordRepository;
 import com.api.v1.dtos.cars.CarModificationRequestDto;
+import com.api.v1.dtos.cars.CarResponseDto;
 import com.api.v1.utils.cars.CarFinderUtil;
+import com.api.v1.utils.cars.CarResponseMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,7 +28,7 @@ class CarModificationServiceImpl implements CarModificationService {
     private CarsRepository carsRepository;
 
     @Override
-    public Mono<Cars> modify(
+    public Mono<CarResponseDto> modify(
             @NotBlank @Size(min=13, max=13) String vin,
             @Valid CarModificationRequestDto requestDto
     ) {
@@ -42,7 +44,8 @@ class CarModificationServiceImpl implements CarModificationService {
                             car.modify(requestDto);
                             return carsRepository.save(car);
                         })
-                ));
+                ))
+                .flatMap(car -> Mono.just(CarResponseMapper.map(car)));
     }
 
 }
