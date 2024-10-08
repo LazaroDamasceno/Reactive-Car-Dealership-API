@@ -4,6 +4,7 @@ import com.api.v1.domain.customers.Customers;
 import com.api.v1.dtos.customers.CustomerModificationRequestDto;
 import com.api.v1.dtos.customers.CustomerRegistrationRequestDto;
 import com.api.v1.dtos.customers.CustomerResponseDto;
+import com.api.v1.services.customers.CustomerDeletionService;
 import com.api.v1.services.customers.CustomerModificationService;
 import com.api.v1.services.customers.CustomerRegistrationService;
 import com.api.v1.services.customers.CustomerRetrievalService;
@@ -28,6 +29,9 @@ public class CustomersController {
 
     @Autowired
     private CustomerRetrievalService customerRetrievalService;
+
+    @Autowired
+    private CustomerDeletionService customerDeletionService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -56,4 +60,15 @@ public class CustomersController {
         return customerRetrievalService.findAll();
     }
 
+    @DeleteMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteBySsn(@PathVariable @NotBlank @Size(min=9, max=9) String ssn) {
+        return customerDeletionService.deleteBySsn(ssn);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteAll() {
+        return customerDeletionService.deleteAll();
+    }
 }
