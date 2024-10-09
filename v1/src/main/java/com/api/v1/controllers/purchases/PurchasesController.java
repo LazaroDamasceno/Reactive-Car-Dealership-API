@@ -1,14 +1,15 @@
 package com.api.v1.controllers.purchases;
 
-import com.api.v1.domain.purchases.Purchases;
 import com.api.v1.dtos.purchases.PurchaseResponseDto;
 import com.api.v1.services.purchases.PurchaseDeletionService;
 import com.api.v1.services.purchases.PurchaseRegistrationService;
+import com.api.v1.services.purchases.PurchaseRetrievalService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -20,6 +21,9 @@ public class PurchasesController {
 
     @Autowired
     private PurchaseDeletionService purchaseDeletionService;
+
+    @Autowired
+    private PurchaseRetrievalService purchaseRetrievalService;
 
     @PostMapping("{vin}/{ssn}/{employeeId}")
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -42,4 +46,31 @@ public class PurchasesController {
     public Mono<Void> deleteByOrderNumber(@PathVariable @NotBlank @Size(min=9, max=9) String orderNumber) {
         return purchaseDeletionService.deleteByOrderNumber(orderNumber);
     }
+
+    @GetMapping("{employeeId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Flux<PurchaseResponseDto> findBySalesperson(@PathVariable @NotBlank @Size(min=7, max=7) String employeeId) {
+        return purchaseRetrievalService.findBySalesperson(employeeId);
+    }
+
+    @GetMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Flux<PurchaseResponseDto> findByCustomer(@PathVariable @NotBlank @Size(min=9, max=9) String ssn) {
+        return purchaseRetrievalService.findByCustomer(ssn);
+    }
+
+    @GetMapping("{orderNumber}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<PurchaseResponseDto> findByOrderNumber(
+            @PathVariable @NotBlank @Size(min=9, max=9) String orderNumber
+    ) {
+        return purchaseRetrievalService.findByOrderNumber(orderNumber);
+    }
+
+    @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    public Flux<PurchaseResponseDto> findAll() {
+        return purchaseRetrievalService.findAll();
+    }
+
 }
