@@ -1,5 +1,6 @@
 package com.api.v1.customers;
 
+import com.api.v1.dtos.customers.CustomerResponseDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,8 @@ class CustomerRetrievalBySsnTest {
                 .uri("api/v1/customers/123456789")
                 .exchange()
                 .expectStatus()
-                .is2xxSuccessful();
+                .is2xxSuccessful()
+                .expectBody(CustomerResponseDto.class);
     }
 
     @Test

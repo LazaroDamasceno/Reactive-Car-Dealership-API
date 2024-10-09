@@ -1,5 +1,6 @@
 package com.api.v1.cars;
 
+import com.api.v1.dtos.cars.CarResponseDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,8 @@ class CarRetrievalByVinTest {
                 .uri("api/v1/cars/1234567890123")
                 .exchange()
                 .expectStatus()
-                .is2xxSuccessful();
+                .is2xxSuccessful()
+                .expectBody(CarResponseDto.class);
     }
 
     @Test
