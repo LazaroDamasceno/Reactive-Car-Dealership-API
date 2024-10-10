@@ -7,9 +7,10 @@ public class EmployeeIdGeneratorUtil {
 
     public static BigInteger generate() {
         SecureRandom random = new SecureRandom();
-        BigInteger min = BigInteger.valueOf(1000000);
-        BigInteger max = BigInteger.valueOf(9999999);
-        return min.add(new BigInteger(7, random)).mod(max.subtract(min));
+        int upperBound = 9999999;
+        int randomId = random.nextInt(upperBound - 1000000 + 1) + 1000000;
+        String strFormat = String.format("%07d", randomId);
+        return new BigInteger(strFormat);
     }
 
 }
