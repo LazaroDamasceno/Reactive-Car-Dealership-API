@@ -41,25 +41,25 @@ public class PurchasesController {
         return purchaseDeletionService.deleteAll();
     }
 
-    @DeleteMapping("{orderNumber}")
+    @DeleteMapping("orderNumber/{orderNumber}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<Void> deleteByOrderNumber(@PathVariable @NotBlank @Size(min=9, max=9) String orderNumber) {
         return purchaseDeletionService.deleteByOrderNumber(orderNumber);
     }
 
-    @GetMapping("{employeeId}")
+    @GetMapping("employeeId/{employeeId}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> findBySalesperson(@PathVariable @NotBlank @Size(min=7, max=7) String employeeId) {
         return purchaseRetrievalService.findBySalesperson(employeeId);
     }
 
-    @GetMapping("{ssn}")
+    @GetMapping("ssn/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> findByCustomer(@PathVariable @NotBlank @Size(min=9, max=9) String ssn) {
         return purchaseRetrievalService.findByCustomer(ssn);
     }
 
-    @GetMapping("{orderNumber}")
+    @GetMapping("order-number/{orderNumber}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<PurchaseResponseDto> findByOrderNumber(
             @PathVariable @NotBlank @Size(min=9, max=9) String orderNumber

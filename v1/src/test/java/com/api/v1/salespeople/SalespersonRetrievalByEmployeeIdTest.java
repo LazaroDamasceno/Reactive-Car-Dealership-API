@@ -21,7 +21,7 @@ public class SalespersonRetrievalByEmployeeIdTest {
     void testSuccessfulRetrieval() {
         webTestClient
                 .get()
-                .uri("api/v1/salespeople/1000102")
+                .uri("api/v1/salespeople/1000033")
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()

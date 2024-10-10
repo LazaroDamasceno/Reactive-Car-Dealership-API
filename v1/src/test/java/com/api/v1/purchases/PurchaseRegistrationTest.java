@@ -22,7 +22,7 @@ class PurchaseRegistrationTest {
         while (testcases > 0) {
             webTestClient
                     .post()
-                    .uri("api/v1/purchases/1234567890123/123456789/1000076")
+                    .uri("api/v1/purchases/1234567890123/123456789/1000033")
                     .exchange()
                     .expectStatus()
                     .is2xxSuccessful();
@@ -35,7 +35,7 @@ class PurchaseRegistrationTest {
     void testUnsuccessfulRegistration1() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/1234567890122/123456789/1000076")
+                .uri("api/v1/purchases/1234567890122/123456789/1000033")
                 .exchange()
                 .expectStatus()
                 .is5xxServerError();
@@ -45,7 +45,7 @@ class PurchaseRegistrationTest {
     void testUnsuccessfulRegistration2() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/1234567890123/123456788/1000076")
+                .uri("api/v1/purchases/1234567890123/123456788/1000033")
                 .exchange()
                 .expectStatus()
                 .is5xxServerError();
@@ -65,7 +65,7 @@ class PurchaseRegistrationTest {
     void testUnsuccessfulRegistration4() {
         webTestClient
                 .post()
-                .uri("api/v1/purchases/1234567890122/123456788/1000077")
+                .uri("api/v1/purchases/1234567890122/123456788/1000033")
                 .exchange()
                 .expectStatus()
                 .is5xxServerError();
