@@ -2,6 +2,7 @@ package com.api.v1.domain.cars;
 
 import com.api.v1.dtos.cars.CarModificationRequestDto;
 import com.api.v1.dtos.cars.CarRegistrationRequestDto;
+import com.api.v1.utils.cars.CarPlateNumberGeneratorUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -52,6 +53,10 @@ public class Cars {
         this.price = BigDecimal.valueOf(requestDto.price());
         this.modifiedAt = Instant.now();
         this.modifiedAtZone = ZoneId.systemDefault();
+    }
+
+    public void setPlateNumber() {
+        plateNumber = CarPlateNumberGeneratorUtil.generate();
     }
 
 }
