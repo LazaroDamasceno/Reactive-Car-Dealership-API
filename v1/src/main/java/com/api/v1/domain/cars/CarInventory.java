@@ -10,7 +10,7 @@ public class CarInventory {
 
     @Id
     private UUID id;
-    private Cars car;
+    private UUID carId;
     private int quantityAvailable;
     private int quantitySold;
 
