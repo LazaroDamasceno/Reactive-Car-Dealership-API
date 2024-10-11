@@ -24,7 +24,6 @@ public class Cars {
     private String vin;
     private int productionYear;
     private BigDecimal price;
-    private String plateNumber;
     private Instant createdAt;
     private ZoneId createdAtZone;
     private Instant modifiedAt;

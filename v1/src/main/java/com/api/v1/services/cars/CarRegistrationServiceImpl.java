@@ -1,7 +1,5 @@
 package com.api.v1.services.cars;
 
-import com.api.v1.domain.cars.CarInventory;
-import com.api.v1.domain.cars.CarInventoryRepository;
 import com.api.v1.domain.cars.Cars;
 import com.api.v1.domain.cars.CarsRepository;
 import com.api.v1.dtos.cars.CarRegistrationRequestDto;
@@ -19,9 +17,6 @@ class CarRegistrationServiceImpl implements CarRegistrationService {
     @Autowired
     private CarsRepository carsRepository;
 
-    @Autowired
-    private CarInventoryRepository carInventoryRepository;
-
     @Override
     public Mono<CarResponseDto> register(@Valid CarRegistrationRequestDto requestDto) {
         return carsRepository
@@ -32,14 +27,10 @@ class CarRegistrationServiceImpl implements CarRegistrationService {
                     if (exists) return Mono.error(new DuplicatedVinException(requestDto.vin()));
                     return Mono.defer(() -> {
                        Cars car =  Cars.create(requestDto);
-                       return carsRepository.save(car)
-                               .flatMap(savedCar -> {
-                                   CarInventory carInventory = CarInventory.create(savedCar, requestDto.quantity());
-                                   return carInventoryRepository.save(carInventory);
-                               })
-                               .flatMap(savedCar -> Mono.just(CarResponseMapper.map(savedCar.getCar())));
+                       return carsRepository.save(car);
                     });
-                });
+                })
+                .flatMap(car -> Mono.just(CarResponseMapper.map(car)));
     }
 
 }
