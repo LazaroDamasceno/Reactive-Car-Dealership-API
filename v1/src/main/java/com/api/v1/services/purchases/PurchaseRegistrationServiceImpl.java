@@ -54,7 +54,6 @@ class PurchaseRegistrationServiceImpl implements PurchaseRegistrationService {
         return Mono.zip(carMono, customerMono, salesPersonMono)
                 .flatMap(tuple -> {
                     Cars car = tuple.getT1();
-                    car.setPlateNumber();
                     Customers customer = tuple.getT2();
                     Salespeople salesperson = tuple.getT3();
                     Purchases purchase = Purchases.create(car, customer, salesperson);
