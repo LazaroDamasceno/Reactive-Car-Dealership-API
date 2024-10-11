@@ -1,4 +1,4 @@
-package com.api.v2.users;
+package com.api.v2.users.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

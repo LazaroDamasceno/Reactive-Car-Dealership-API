@@ -1,5 +1,7 @@
-package com.api.v2.users;
+package com.api.v2.users.domain;
 
+import com.api.v2.users.dtos.UserModificationRequestDto;
+import com.api.v2.users.dtos.UserRegistrationRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;

@@ -1,4 +1,4 @@
-package com.api.v2.users;
+package com.api.v2.users.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
