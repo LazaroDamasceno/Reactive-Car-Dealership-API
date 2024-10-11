@@ -7,6 +7,7 @@ public record CarRegistrationRequestDto(
         @NotBlank String model,
         String vin,
         int productionYear,
-        double price
+        double price,
+        int quantity
 ) {
 }

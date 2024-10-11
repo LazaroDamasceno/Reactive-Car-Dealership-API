@@ -21,7 +21,8 @@ class CarRegistrationTest {
             "HUMMER EV PICKUP 2X",
             "1234567890123",
             2024,
-            4_730D
+            4_730D,
+            30
     );
 
     @Test
