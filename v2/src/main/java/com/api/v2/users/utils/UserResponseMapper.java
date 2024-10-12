@@ -1,4 +1,4 @@
-package com.api.v2.users;
+package com.api.v2.users.utils;
 
 import com.api.v2.users.domain.User;
 import com.api.v2.users.dtos.UserResponseDto;
