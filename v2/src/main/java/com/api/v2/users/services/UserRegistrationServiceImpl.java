@@ -4,7 +4,6 @@ import com.api.v2.users.utils.UserResponseMapper;
 import com.api.v2.users.domain.User;
 import com.api.v2.users.domain.UserRepository;
 import com.api.v2.users.dtos.UserRegistrationRequestDto;
-import com.api.v2.users.dtos.UserResponseDto;
 import com.api.v2.users.exceptions.DuplicatedEmailException;
 import com.api.v2.users.exceptions.DuplicatedSsnException;
 import jakarta.validation.Valid;
