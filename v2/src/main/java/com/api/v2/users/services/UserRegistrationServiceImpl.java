@@ -19,7 +19,7 @@ class UserRegistrationServiceImpl implements UserRegistrationService {
     private UserRepository userRepository;
 
     @Override
-    public Mono<UserResponseDto> register(@Valid UserRegistrationRequestDto requestDto) {
+    public Mono<User> register(@Valid UserRegistrationRequestDto requestDto) {
         return userRepository
                 .findAll()
                 .filter(user -> user.getSsn().equals(requestDto.ssn()))
@@ -32,9 +32,7 @@ class UserRegistrationServiceImpl implements UserRegistrationService {
                             .hasElements()
                             .flatMap(emailExists -> {
                                 if (emailExists) return Mono.error(DuplicatedEmailException::new);
-                                return userRepository
-                                        .save(User.of(requestDto))
-                                        .flatMap(user -> Mono.just(UserResponseMapper.map(user)));
+                                return userRepository.save(User.of(requestDto));
                             });
                 });
     }
