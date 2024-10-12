@@ -50,7 +50,7 @@ public class User {
         return new User(requestDto);
     }
 
-    public void update(UserModificationRequestDto requestDto) {
+    public void modify(UserModificationRequestDto requestDto) {
         this.firstName = requestDto.firstName();
         this.middleName = requestDto.middleName();
         this.lastName = requestDto.lastName();
