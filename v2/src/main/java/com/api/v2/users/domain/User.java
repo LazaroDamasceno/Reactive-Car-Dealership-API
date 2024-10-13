@@ -5,7 +5,7 @@ import com.api.v2.users.dtos.UserRegistrationRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
-@Table("v2_users")
+@Document(collection = "v2_users")
 public class User {
 
     @Id
@@ -33,6 +33,7 @@ public class User {
     private ZoneId modifiedAtZone;
 
     private User(UserRegistrationRequestDto requestDto) {
+        this.id = UUID.randomUUID();
         this.firstName = requestDto.firstName();
         this.middleName = requestDto.middleName();
         this.lastName = requestDto.lastName();
