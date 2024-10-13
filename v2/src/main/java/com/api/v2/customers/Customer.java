@@ -24,4 +24,16 @@ public class Customer {
     private Instant modifiedAt;
     private ZoneId modifiedAtZone;
 
+    private Customer(String address, User user) {
+        this.id = UUID.randomUUID();
+        this.address = address;
+        this.user = user;
+        this.createdAt = Instant.now();
+        this.createdAtZone = ZoneId.systemDefault();
+    }
+
+    public static Customer of(String address, User user) {
+        return new Customer(address, user);
+    }
+
 }
