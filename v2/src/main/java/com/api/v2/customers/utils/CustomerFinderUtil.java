@@ -20,11 +20,11 @@ public class CustomerFinderUtil {
                 .filter(e -> e.getSsn().equals(ssn))
                 .singleOrEmpty()
                 .switchIfEmpty(Mono.error(new CustomerNotFoundException(ssn)))
-                .flatMap(user -> Mono.defer(() -> customerRepository
+                .flatMap(user -> customerRepository
                             .findAll()
                             .filter(e -> e.getUser().equals(user))
                             .single()
-                ));
+                );
     }
 
 }

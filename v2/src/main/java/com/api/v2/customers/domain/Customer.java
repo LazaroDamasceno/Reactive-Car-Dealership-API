@@ -1,5 +1,6 @@
-package com.api.v2.customers;
+package com.api.v2.customers.domain;
 
+import com.api.v2.customers.dtos.CustomerModificationRequestDto;
 import com.api.v2.users.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,13 @@ public class Customer {
 
     public static Customer of(String address, User user) {
         return new Customer(address, user);
+    }
+
+    public void modify(String address, User user) {
+        this.address = address;
+        this.user = user;
+        modifiedAt = Instant.now();
+        modifiedAtZone = ZoneId.systemDefault();
     }
 
 }

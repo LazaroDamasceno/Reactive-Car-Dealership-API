@@ -1,5 +1,10 @@
-package com.api.v2.customers;
+package com.api.v2.customers.services;
 
+import com.api.v2.customers.domain.Customer;
+import com.api.v2.customers.domain.CustomerRepository;
+import com.api.v2.customers.dtos.CustomerRegistrationRequestDto;
+import com.api.v2.customers.dtos.CustomerResponseDto;
+import com.api.v2.customers.utils.CustomerResponseMapper;
 import com.api.v2.users.services.UserRegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +26,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
                     Customer customer = Customer.of(requestDto.address(), user);
                     return customerRepository.save(customer);
                 }))
-                .flatMap(customer -> Mono.just(CustomerRequestMapper.map(customer)));
+                .flatMap(customer -> Mono.just(CustomerResponseMapper.map(customer)));
     }
 
 }
