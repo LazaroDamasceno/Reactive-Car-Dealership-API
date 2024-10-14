@@ -4,15 +4,16 @@ import com.api.v2.customers.CustomerNotFoundException;
 import com.api.v2.customers.domain.Customer;
 import com.api.v2.customers.domain.CustomerRepository;
 import com.api.v2.users.domain.UserRepository;
-import lombok.AllArgsConstructor;
-import lombok.experimental.UtilityClass;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-@UtilityClass
+@Component
+@RequiredArgsConstructor
 public class CustomerFinderUtil {
 
-    private UserRepository userRepository;
-    private CustomerRepository customerRepository;
+    private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     public Mono<Customer> find(String ssn) {
         return userRepository
