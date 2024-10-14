@@ -1,6 +1,6 @@
 package com.api.v2.customers.utils;
 
-import com.api.v2.customers.CustomerNotFoundException;
+import com.api.v2.customers.exceptions.CustomerNotFoundException;
 import com.api.v2.customers.domain.Customer;
 import com.api.v2.customers.domain.CustomerRepository;
 import com.api.v2.users.domain.UserRepository;
