@@ -28,10 +28,12 @@ public class CustomerController {
     }
 
     @PutMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.OK)
     public Mono<CustomerResponseDto> modify(
-            @NotBlank @Size(min=9, max=9) @PathVariable String ssn,
-            @Valid @RequestBody CustomerModificationRequestDto requestDto
+            @PathVariable @NotBlank @Size(min=9, max=9) String ssn,
+            @RequestBody @Valid CustomerModificationRequestDto requestDto
     ) {
         return customerModificationService.modify(ssn, requestDto);
     }
+
 }
